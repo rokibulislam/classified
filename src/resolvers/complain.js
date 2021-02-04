@@ -2,6 +2,8 @@ const { combineResolvers } = require('graphql-resolvers')
 const { posts, users, categories, tags, brands } =  require('../constants')
 const ComplainModel = require('../models/complain')
 const ComplainService = require('../services/complaain.service')
+const PubSub = require('../subscription')
+const { complainEvents } = require('../subscription/events');
 
 const { isAuthenticated } = require( '../middlewares')
 
@@ -28,5 +30,13 @@ module.exports = {
         deleteComplain: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
             return ComplainService.deleteComplain(input.id)
         })
-    }
+    },
+
+    Subscription: {
+        complainCreated: {
+          subscribe: () => {
+              return PubSub.asyncIterator(complainEvents.COMPLAIN_CREATED)
+          }
+        }
+    },
 }

@@ -21,4 +21,8 @@ module.exports = gql`
         id: ID!
         description: String!
     }
+
+    extend type Subscription {
+        complainCreated: Complain
+    }
 `;

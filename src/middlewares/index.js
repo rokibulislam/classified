@@ -9,6 +9,12 @@ module.exports.isAuthenticated = ( _, __, { email } ) => {
     return skip
 }
 
+module.exports.isAdmin = ( ) => {
+
+
+    return skip
+}
+
 module.exports.isPostOwner = ( _, { id }, { loggedInUserId } ) => {
     try {
 

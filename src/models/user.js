@@ -14,6 +14,22 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+
+    photo: {
+        data: Buffer,
+        contentType: String
+    },
+
+    role: {
+        type: String,
+        default: "user",
+        enum: ["user", "admin", "superadmin"]
+    },
+
+    posts: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post'
     }
 }, {
     timestamps: true
