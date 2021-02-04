@@ -2,7 +2,11 @@ const { posts, users, categories, tags, brands } =  require('../constants')
 const AuthService =  require('../services/auth.service')
 const { combineResolvers } = require('graphql-resolvers')
 const { isAuthenticated } = require( '../middlewares')
+const PubSub = require('../subscription');
+const { userEvents } = require('../subscription/events');
+
 const UserService = require('../services/user.service')
+
 module.exports = {
     Query: {
         users: () => UserModel.find(),
@@ -33,5 +37,13 @@ module.exports = {
             console.log( input )
             return AuthService.login(input)
         }
-    }
+    },
+
+    Subscription: {
+        userCreated: {
+          subscribe: () => {
+              return PubSub.asyncIterator(userEvents.USER_CREATED)
+          }
+        }
+    },
 }

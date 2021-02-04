@@ -41,4 +41,8 @@ module.exports =  gql`
         email: String!
         posts: [Post!]
     }
+
+    extend type Subscription {
+        userCreated: User
+    }
 `

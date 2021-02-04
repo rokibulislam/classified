@@ -1,0 +1,5 @@
+module.exports = {
+    POST_CREATED: 'POST_CREATED',
+    POST_UPDATED: 'POST_UPDATED',
+    POST_DELETE:  'POST_DELETE',
+}

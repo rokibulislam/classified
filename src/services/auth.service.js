@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const User = require ('../models/user')
+const PubSub = require('../subscription')
+const { userEvents } = require('../subscription/events');
 
 const login = async ( input ) => {
     try {
@@ -45,6 +47,10 @@ const signup = async ( input ) => {
         const newUser = new User({ ...input, password: hashedPassword });
         const result = await newUser.save();
         
+        PubSub.publish(userEvents.USER_CREATED, {
+            userCreated: result
+        });
+
         return result
 
     } catch( error ) {

@@ -1,4 +1,6 @@
 const Post = require ('../models/post')
+const PubSub = require('../subscription')
+const { postEvents } = require('../subscription/events');
 
 const getPosts = async () => {
     return Post.find()
@@ -12,6 +14,10 @@ const createPost = async ( input ) => {
     let post = new Post({ ...input});
     let result = post.save();
     
+    PubSub.publish(postEvents.POST_CREATED, {
+        postCreated: result
+    });
+
     return result
 }
 

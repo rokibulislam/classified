@@ -24,7 +24,7 @@ const { verifyUser } = require('./src/context')
 const apolloServer =  new ApolloServer({
     typeDefs,
     resolvers,
-    context: async ( { req } ) => {
+    context: async ( { req, connection } ) => {
         const contextObj = {};
 
         if (req) {
@@ -34,6 +34,11 @@ const apolloServer =  new ApolloServer({
         }
 
         return contextObj;
+    },
+    formatError: (error) => {
+        return {
+            message: error.message
+        };
     }
 })
 
@@ -48,7 +53,9 @@ app.use( '/', (req,res,next) => {
     res.send({ message: 'Hello' });
 })
 
-app.listen(PORT, () => {
+const httpServer = app.listen(PORT, () => {
     console.log(`Server listening on PORT: ${PORT}`);
     console.log(`Graphql Endpoint: ${PORT}`);
 })
+
+apolloServer.installSubscriptionHandlers(httpServer);

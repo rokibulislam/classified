@@ -1,6 +1,9 @@
+const { combineResolvers } = require('graphql-resolvers')
 const { posts, users, categories, tags, brands } =  require('../constants')
 const BrandModel = require('../models/brand')
 const BrandService = require('../services/brand.service')
+
+const { isAuthenticated } = require( '../middlewares')
 
 module.exports = {
     
@@ -14,16 +17,16 @@ module.exports = {
     },
 
     Mutation: {
-        createBrand: async (_, { input } ) => {
+        createBrand: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
             return BrandService.createBrand(input);   
-        },
+        }),
 
-        updateBrand: async (_, { input } ) => {
+        updateBrand: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
 
-        },
+        }),
 
-        deleteBrand: async (_, { input } ) => {
+        deleteBrand: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
 
-        }
+        })
     }
 }

@@ -1,6 +1,9 @@
+const { combineResolvers } = require('graphql-resolvers')
 const { posts, users, categories, tags, brands } =  require('../constants')
 const CategoryModel = require('../models/category')
 const CategoryService = require('../services/category.service')
+
+const { isAuthenticated } = require( '../middlewares')
 
 module.exports = {
     
@@ -14,16 +17,16 @@ module.exports = {
     },
 
     Mutation: {
-        createCategory: async (_, { input } ) => {
+        createCategory: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
             return CategoryService.createCategory( input );
-        },
+        }),
 
-        updateCategory: async (_, { input } ) => {
+        updateCategory: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
 
-        },
+        }),
 
-        deleteCategory: async (_, { input } ) => {
+        deleteCategory: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
 
-        }
+        })
     }
 }

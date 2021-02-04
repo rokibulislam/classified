@@ -1,10 +1,11 @@
+const { combineResolvers } = require('graphql-resolvers')
+
 const { posts, users, categories, tags, brands } =  require('../constants')
 const Postmodel = require('../models/post')
 const PostService = require('../services/post.service')
-
-const { combineResolvers } = require('graphql-resolvers')
 const { isAuthenticated } = require( '../middlewares')
-
+const PubSub = require('../subscription')
+const { postEvents } = require('../subscription/events');
 
 module.exports = {
     
@@ -24,16 +25,24 @@ module.exports = {
     },
 
     Mutation: {
-        createPost: async (_, { input } ) => {            
+        createPost: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {            
             return PostService.createPost( input );
-        },
+        }),
 
-        updatePost: async (_, { input } ) => {
+        updatePost: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
+            return PostService.updatePost( input.id , input )
+        }),
 
-        },
+        deletePost: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
+            return PostService.deletePost( input.id  )
+        })
+    },
 
-        deletePost: async (_, { input } ) => {
-
+    Subscription: {
+        postCreated: {
+          subscribe: () => {
+              return PubSub.asyncIterator(postEvents.POST_CREATED)
+          }
         }
-    }
+    },
 }
