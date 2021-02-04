@@ -4,7 +4,7 @@ module.exports =  gql`
 
     extend type Query {
         users: [User!],
-        user(id: ID!): User,
+        user: User,
     }
 
     type Token {
@@ -18,7 +18,6 @@ module.exports =  gql`
     }
 
     input loginInput {
-        name: String!
         email: String!
         password: String!
     }

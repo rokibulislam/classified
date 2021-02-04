@@ -1,12 +1,13 @@
 const { posts, users, categories, tags, brands } =  require('../constants');
 const tag = require('../typeDefs/tag');
 const Tagmodel = require('../models/tag')
+const TagService = require('../services/tag.service')
 
 module.exports = {
     
     Query: {
-        tags: () => Tagmodel.find(),
-        tag: (_, { id } ) => Tagmodel.findById(id)
+        tags: () => TagService.getTags(),
+        tag: (_, { id } ) => TagService.getTag(id)
     },
 
     Tag: {
@@ -22,11 +23,8 @@ module.exports = {
     },
 
     Mutation: {
-        createTag: async (_, { input } ) => {
-            let tag = new Tagmodel({ ...input});
-            let result = tag.save();
-            
-            return result;
+        createTag: async (_, { input } ) => {            
+            return TagService.createTag(input);
         },
 
         updateTag: async (_, { input } ) => {

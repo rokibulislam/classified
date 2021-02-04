@@ -1,12 +1,14 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { posts, users, categories, tags, brands } =  require('../constants')
-const UserModel = require('../models/user')
-
+const AuthService =  require('../services/auth.service')
+const { combineResolvers } = require('graphql-resolvers')
+const { isAuthenticated } = require( '../middlewares')
+const UserService = require('../services/user.service')
 module.exports = {
     Query: {
         users: () => UserModel.find(),
-        user: (_, { id } ) => UserModel.findById(id),
+        user: combineResolvers( isAuthenticated, (_, __, { loggedInUserId } ) => {
+          return  UserService.getUser(loggedInUserId);
+        })
     },
 
     User: {
@@ -23,14 +25,13 @@ module.exports = {
 
     Mutation: {
         signup: async (_, { input } ) => {
-            const hashedPassword = await bcrypt.hash(input.password, 12);
-            const newUser = new UserModel({ ...input, password: hashedPassword });
-            const result = await newUser.save();
-            return result
+            console.log(input)
+            return AuthService.signup(input)
         },
 
         login: async (_, { input } ) => {
-
+            console.log( input )
+            return AuthService.login(input)
         }
     }
 }

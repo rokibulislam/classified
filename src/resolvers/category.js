@@ -1,11 +1,12 @@
 const { posts, users, categories, tags, brands } =  require('../constants')
 const CategoryModel = require('../models/category')
+const CategoryService = require('../services/category.service')
 
 module.exports = {
     
     Query: {
-        categories: () => CategoryModel.find(),
-        category: (_, { id } ) => CategoryModel.findById(id),
+        categories: () => CategoryService.getCategories(),
+        category: (_, { id } ) => CategoryService.getCategory(),
     },
 
     Category: {
@@ -14,10 +15,7 @@ module.exports = {
 
     Mutation: {
         createCategory: async (_, { input } ) => {
-            let category = new CategoryModel({ ...input});
-            let result = category.save();
-
-            return result;
+            return CategoryService.createCategory( input );
         },
 
         updateCategory: async (_, { input } ) => {

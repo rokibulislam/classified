@@ -1,11 +1,12 @@
 const { posts, users, categories, tags, brands } =  require('../constants')
 const BrandModel = require('../models/brand')
+const BrandService = require('../services/brand.service')
 
 module.exports = {
     
     Query: {
-        brands: () => BrandModel.find(),
-        brand: (_, { id } ) => BrandModel.findById(id),
+        brands: () => BrandService.getBrands(),
+        brand: (_, { id } ) => BrandService.getBrand(id),
     },
 
     Brand: {
@@ -14,10 +15,7 @@ module.exports = {
 
     Mutation: {
         createBrand: async (_, { input } ) => {
-            let brand = new BrandModel({ ...input});
-            let result = brand.save();
-
-            return result;   
+            return BrandService.createBrand(input);   
         },
 
         updateBrand: async (_, { input } ) => {
