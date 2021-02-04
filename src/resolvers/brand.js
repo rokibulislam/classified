@@ -22,11 +22,11 @@ module.exports = {
         }),
 
         updateBrand: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-
+            return BrandService.updateBrand(input.id, input)
         }),
 
         deleteBrand: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-
+            return BrandService.deleteBrand(input.id)
         })
     }
 }

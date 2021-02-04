@@ -22,11 +22,11 @@ module.exports = {
         }),
 
         updateCategory: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-
+            return CategoryService.updateCategory(input.id,input)
         }),
 
         deleteCategory: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-
+            return CategoryService.deleteCategory(input.id)
         })
     }
 }

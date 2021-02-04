@@ -9,8 +9,8 @@ const getCategory = async (id) => {
 }
 
 const createCategory = async ( input ) => {
-    let tag = new Category({ ...input});
-    let result = Category.save();
+    let category = new Category({ ...input});
+    let result = category.save();
     
     return result
 }

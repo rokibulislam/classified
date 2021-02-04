@@ -5,6 +5,8 @@ const postTypeDefs = require('./post')
 const categoryTypeDefs = require('./category')
 const tagTypeDefs = require('./tag')
 const brandTypeDefs = require('./brand')
+const packageTypeDefs = require('./package')
+const complainTypeDefs = require('./complain')
 
 const typeDefs = gql`
   scalar Date
@@ -26,5 +28,7 @@ module.exports = [
     postTypeDefs,
     categoryTypeDefs,
     tagTypeDefs,
-    brandTypeDefs
+    brandTypeDefs,
+    packageTypeDefs,
+    complainTypeDefs
 ]

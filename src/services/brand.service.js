@@ -9,8 +9,8 @@ const getBrand = async (id) => {
 }
 
 const createBrand = async ( input ) => {
-    let tag = new Brand({ ...input});
-    let result = Brand.save();
+    let brand = new Brand({ ...input});
+    let result = brand.save();
     
     return result
 }
