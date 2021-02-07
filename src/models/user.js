@@ -27,6 +27,12 @@ const userSchema = new mongoose.Schema({
         enum: ["user", "admin", "superadmin"]
     },
 
+    permission: {
+        type: String,
+        default: "user",
+        enum: ["user", "admin", "superadmin"]
+    },
+
     posts: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'

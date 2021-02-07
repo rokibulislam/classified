@@ -25,8 +25,8 @@ module.exports = {
             return CategoryService.updateCategory(input.id,input)
         }),
 
-        deleteCategory: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-            return CategoryService.deleteCategory(input.id)
+        deleteCategory: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            return CategoryService.deleteCategory(id)
         })
     }
 }
