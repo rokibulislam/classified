@@ -12,7 +12,7 @@ module.exports = gql`
     }
 
     extend type Mutation {
-        createComplain( input: createPackageInput ) : Complain
+        createComplain( input: createComplainInput ) : Complain
         updateComplain(id: ID!, input: createComplainInput ) : Complain
         deleteComplain(id: ID!) : Complain
     }

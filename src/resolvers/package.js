@@ -25,8 +25,8 @@ module.exports = {
             return PackageService.updatePackage(input.id, input)
         }),
 
-        deletePackage: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-            return PackageService.deletePackage(input.id)
+        deletePackage: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            return PackageService.deletePackage(id)
         })
     }
 }

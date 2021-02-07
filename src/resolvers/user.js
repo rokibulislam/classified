@@ -9,7 +9,7 @@ const UserService = require('../services/user.service')
 
 module.exports = {
     Query: {
-        users: () => UserModel.find(),
+        users: () => UserService.getUsers(),
         user: combineResolvers( isAuthenticated, (_, __, { loggedInUserId } ) => {
           return  UserService.getUser(loggedInUserId);
         })

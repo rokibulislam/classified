@@ -27,8 +27,8 @@ module.exports = {
             return ComplainService.updateComplain(input.id, input)
         }),
 
-        deleteComplain: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-            return ComplainService.deleteComplain(input.id)
+        deleteComplain: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            return ComplainService.deleteComplain(id)
         })
     },
 

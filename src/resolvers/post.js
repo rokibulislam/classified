@@ -25,6 +25,7 @@ module.exports = {
     },
 
     Mutation: {
+        // createPost: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {            
         createPost: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {            
             return PostService.createPost( input );
         }),
@@ -33,8 +34,8 @@ module.exports = {
             return PostService.updatePost( input.id , input )
         }),
 
-        deletePost: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-            return PostService.deletePost( input.id  )
+        deletePost: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            return PostService.deletePost( id  )
         })
     },
 
