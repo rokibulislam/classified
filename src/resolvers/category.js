@@ -9,7 +9,7 @@ module.exports = {
     
     Query: {
         categories: () => CategoryService.getCategories(),
-        category: (_, { id } ) => CategoryService.getCategory(),
+        category: (_, { id } ) => CategoryService.getCategory(id),
     },
 
     Category: {
@@ -21,8 +21,8 @@ module.exports = {
             return CategoryService.createCategory( input );
         }),
 
-        updateCategory: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-            return CategoryService.updateCategory(input.id,input)
+        updateCategory: combineResolvers( isAuthenticated, async (_, { id, input }, { email } ) => {
+            return CategoryService.updateCategory( id,input )
         }),
 
         deleteCategory: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {

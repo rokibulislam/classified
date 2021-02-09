@@ -30,8 +30,8 @@ module.exports = {
             return TagService.createTag(input);
         }),
 
-        updateTag: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-            return TagService.updateTag(input.id,input);
+        updateTag: combineResolvers( isAuthenticated, async (_, { id, input }, { email } ) => {
+            return TagService.updateTag(id,input);
         }),
 
         deleteTag: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {

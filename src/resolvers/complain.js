@@ -11,7 +11,7 @@ module.exports = {
     
     Query: {
         complains: () => ComplainService.getComplains(),
-        complain: (_, { id } ) => ComplainService.getComplaine(id),
+        complain: (_, { id } ) => ComplainService.getComplain(id),
     },
 
     Package: {
@@ -23,8 +23,8 @@ module.exports = {
             return ComplainService.createComplain(input);   
         }),
 
-        updateComplain: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-            return ComplainService.updateComplain(input.id, input)
+        updateComplain: combineResolvers( isAuthenticated, async (_, { id, input }, { email } ) => {
+            return ComplainService.updateComplain(id, input)
         }),
 
         deleteComplain: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {

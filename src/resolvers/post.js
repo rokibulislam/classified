@@ -30,8 +30,8 @@ module.exports = {
             return PostService.createPost( input );
         }),
 
-        updatePost: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-            return PostService.updatePost( input.id , input )
+        updatePost: combineResolvers( isAuthenticated, async (_, { id, input }, { email } ) => {
+            return PostService.updatePost( id , input )
         }),
 
         deletePost: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {

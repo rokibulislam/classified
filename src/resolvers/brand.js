@@ -21,8 +21,8 @@ module.exports = {
             return BrandService.createBrand(input);   
         }),
 
-        updateBrand: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
-            return BrandService.updateBrand(input.id, input)
+        updateBrand: combineResolvers( isAuthenticated, async (_, { id, input }, { email } ) => {
+            return BrandService.updateBrand( id, input )
         }),
 
         deleteBrand: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
