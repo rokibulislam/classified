@@ -28,7 +28,6 @@ const login = async ( input ) => {
         
         return { token }
     } catch( error ) { 
-        console.log( error ) 
         throw error
     }
 }
@@ -54,7 +53,6 @@ const signup = async ( input ) => {
         return result
 
     } catch( error ) {
-        console.log(error);
         throw error;
     }
 }

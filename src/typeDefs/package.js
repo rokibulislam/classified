@@ -8,7 +8,10 @@ module.exports = gql`
     }
 
     input createPackageInput {
-        name: String!
+        name: String!,
+        amount: String!,
+        duration: String!,
+        allowedpost: String!
     }
 
     extend type Mutation {
@@ -20,5 +23,8 @@ module.exports = gql`
     type Package {
         id: ID!
         name: String!
+        amount: String!
+        duration: String!
+        allowedpost: String!
     }
 `;

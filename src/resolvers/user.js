@@ -21,7 +21,6 @@ module.exports = {
                const posts =  posts.find( post => post.userId = id )
                return posts; 
             } catch( error ) {
-                console.log( error )
                 throw error
             }
         }
@@ -29,12 +28,10 @@ module.exports = {
 
     Mutation: {
         signup: async (_, { input } ) => {
-            console.log(input)
             return AuthService.signup(input)
         },
 
         login: async (_, { input } ) => {
-            console.log( input )
             return AuthService.login(input)
         }
     },

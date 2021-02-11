@@ -9,6 +9,7 @@ module.exports = gql`
 
     input createTagInput {
         name: String!
+        description: String!
     }
 
     extend type Mutation {
@@ -21,6 +22,7 @@ module.exports = gql`
     type Tag {
         id: ID!
         name: String!
+        description: String!
         posts: [Post!]
     }
 `;

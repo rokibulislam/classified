@@ -7,6 +7,7 @@ const tagTypeDefs = require('./tag')
 const brandTypeDefs = require('./brand')
 const packageTypeDefs = require('./package')
 const complainTypeDefs = require('./complain')
+const reviewTypeDefs = require('./review')
 
 const typeDefs = gql`
   scalar Date
@@ -30,5 +31,6 @@ module.exports = [
     tagTypeDefs,
     brandTypeDefs,
     packageTypeDefs,
-    complainTypeDefs
+    complainTypeDefs,
+    reviewTypeDefs
 ]

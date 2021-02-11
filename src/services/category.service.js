@@ -5,7 +5,8 @@ const getCategories = async () => {
 }
 
 const getCategory = async (id) => {
-    return Category.findById(id)
+    const category = await Category.findById(id)
+    return category;
 }
 
 const createCategory = async ( input ) => {

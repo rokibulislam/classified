@@ -3,17 +3,20 @@ const PubSub = require('../subscription')
 const { postEvents } = require('../subscription/events');
 
 const getPosts = async () => {
-    return Post.find()
+    let posts = await Post.find();
+    return posts
 }
 
 const getPost = async (id) => {
     return Post.findById(id)
 }
 
-const createPost = async ( input ) => {
-    let post = new Post({ ...input});
+const createPost = async ( input, loggedInUserId ) => {
+    console.log( loggedInUserId );
+    let post = new Post({ ...input, user: loggedInUserId });
+
     let result = post.save();
-    
+
     PubSub.publish(postEvents.POST_CREATED, {
         postCreated: result
     });

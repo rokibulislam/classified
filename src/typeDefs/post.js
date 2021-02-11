@@ -10,6 +10,9 @@ module.exports =  gql`
     input createPostInput {
         title: String!
         body: String!
+        category: String
+        tag: String
+        brand: String
     }
 
     extend type Mutation {
@@ -24,6 +27,9 @@ module.exports =  gql`
         title: String!
         body: String!
         user: User! 
+        category: [Category]
+        tag: [Tag]
+        brand: [Brand]
     }
 
     extend type Subscription {

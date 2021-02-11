@@ -19,7 +19,6 @@ module.exports = {
                const posts =  posts.find( post => post.userId = id )
                return posts; 
             } catch( error ) {
-                console.log( error )
                 throw error
             }
         }

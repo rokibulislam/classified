@@ -9,6 +9,7 @@ module.exports = gql`
 
     input createBrandInput {
         name: String!
+        description: String!
     }
 
     extend type Mutation {
@@ -20,6 +21,7 @@ module.exports = gql`
     type Brand {
         id: ID!
         name: String!
+        description: String!
         posts: [Post!]
     }
 `;

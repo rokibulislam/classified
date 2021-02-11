@@ -22,9 +22,6 @@ module.exports = {
         }),
 
         updatePackage: combineResolvers( isAuthenticated, async (_, { id, input }, { email } ) => {
-            console.log( 'update package' );
-            console.log( id );
-            console.log( input );
             return PackageService.updatePackage(id, input)
         }),
 

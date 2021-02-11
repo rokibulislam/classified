@@ -16,7 +16,6 @@ module.exports.verifyUser = async (req) => {
         req.loggedInUserId = user.id;
       }
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
