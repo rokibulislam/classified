@@ -1,4 +1,3 @@
-const { posts, users, categories, tags, brands } =  require('../constants')
 const AuthService =  require('../services/auth.service')
 const { combineResolvers } = require('graphql-resolvers')
 const { isAuthenticated } = require( '../middlewares')
@@ -6,6 +5,7 @@ const PubSub = require('../subscription');
 const { userEvents } = require('../subscription/events');
 
 const UserService = require('../services/user.service')
+const PostService = require('../services/post.service')
 
 module.exports = {
     Query: {
@@ -16,9 +16,11 @@ module.exports = {
     },
 
     User: {
-        posts: async ( {id } ) => {
+        posts: async ( parent, args ) => {
             try {
-               const posts =  posts.find( post => post.userId = id )
+               const posts = PostService.postbymeta({
+                    user: parent._id
+               })
                return posts; 
             } catch( error ) {
                 throw error

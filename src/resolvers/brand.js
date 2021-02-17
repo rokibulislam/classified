@@ -2,6 +2,7 @@ const { combineResolvers } = require('graphql-resolvers')
 const { posts, users, categories, tags, brands } =  require('../constants')
 const BrandModel = require('../models/brand')
 const BrandService = require('../services/brand.service')
+const PostService = require('../services/post.service')
 
 const { isAuthenticated } = require( '../middlewares')
 
@@ -13,7 +14,14 @@ module.exports = {
     },
 
     Brand: {
+        posts: async ( parent, args ) => {
+           
+            let posts = await PostService.postbymeta({
+               brand: parent._id
+            })
 
+            return posts;
+        },
     },
 
     Mutation: {

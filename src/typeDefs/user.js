@@ -33,6 +33,7 @@ module.exports =  gql`
         deleteUser(id: ID!) : User
         signup( input: signupInput ) : User
         login( input: loginInput ) : Token
+        sendForgotPasswordEmail(email: String!): Boolean
     }
 
     type User {

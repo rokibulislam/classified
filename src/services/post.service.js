@@ -11,10 +11,16 @@ const getPost = async (id) => {
     return Post.findById(id)
 }
 
-const createPost = async ( input, loggedInUserId ) => {
-    console.log( loggedInUserId );
-    let post = new Post({ ...input, user: loggedInUserId });
+/**  get post by category, tag ,brand , table column */
+const postbymeta = async ( options ) => {
+    console.log( options );
+    let posts = await Post.find( options );
+    return posts
+}
 
+
+const createPost = async ( input, loggedInUserId ) => {
+    let post = new Post({ ...input, user: loggedInUserId });
     let result = post.save();
 
     PubSub.publish(postEvents.POST_CREATED, {
@@ -25,6 +31,8 @@ const createPost = async ( input, loggedInUserId ) => {
 }
 
 const updatePost = async ( id, post ) => {
+    console.log( 'post update ');
+    console.log( post );
     return Post.findOneAndUpdate( { _id: id }, post, { new: true } )
 }
 
@@ -38,4 +46,5 @@ module.exports = {
     createPost,
     updatePost,
     deletePost,
+    postbymeta
 }

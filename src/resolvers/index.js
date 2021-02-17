@@ -6,6 +6,8 @@ const brandResolver = require('./brand')
 const packageResolver = require('./package')
 const complainResolver = require('./complain')
 const reviewResolver = require('./review')
+const attributeResolver = require('./attribute')
+const couponResolver = require('./coupon')
 
 module.exports = [
     userResolver,
@@ -15,5 +17,7 @@ module.exports = [
     brandResolver,
     packageResolver,
     complainResolver,
-    reviewResolver
+    reviewResolver,
+    attributeResolver,
+    couponResolver
 ]

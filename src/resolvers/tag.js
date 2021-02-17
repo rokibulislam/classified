@@ -3,6 +3,7 @@ const { posts, users, categories, tags, brands } =  require('../constants');
 const tag = require('../typeDefs/tag');
 const Tagmodel = require('../models/tag')
 const TagService = require('../services/tag.service')
+const PostService = require('../services/post.service')
 
 const { isAuthenticated } = require( '../middlewares')
 
@@ -14,14 +15,12 @@ module.exports = {
     },
 
     Tag: {
-        posts: async ( {id } ) => {
-            try {
-               const posts =  posts.find( post => post.userId = id )
-               return posts; 
-            } catch( error ) {
-                throw error
-            }
-        }
+        posts: async ( parent, args ) => {
+            let posts = await PostService.postbymeta({
+               tag: parent._id
+            })
+            return posts;
+        },
     },
 
     Mutation: {
