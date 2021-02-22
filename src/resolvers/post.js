@@ -1,8 +1,5 @@
 const { combineResolvers } = require('graphql-resolvers')
-
-const { posts, users, categories, tags, brands } =  require('../constants')
-const Postmodel = require('../models/post')
-const Categorymodel = require('../models/category')
+const { ApolloError } = require('apollo-server-express')
 const PostService = require('../services/post.service')
 const CategoryService = require('../services/category.service')
 const TagService = require('../services/tag.service')
@@ -15,8 +12,8 @@ const { postEvents } = require('../subscription/events');
 module.exports = {
     
     Query: {
-        posts: async (_,{}, { email }) => {
-            return PostService.getPosts()
+        posts: async (_,{ cursor, limit = 10 }, { email }) => {
+            return PostService.getPosts(  cursor, limit )
         },
         post: async (_, { id }, { email } ) => {
             return PostService.getPost(id)
@@ -24,20 +21,24 @@ module.exports = {
     },
 
     Post: {
-        category: async ( parent, args ) => {
-            let categories = await CategoryService.getCategory(parent.category)
+        category: async ( parent, args, { loaders } ) => {
+            const categories = await loaders.category.load( parent.category.toString() );
+            // let categories = await CategoryService.getCategory(parent.category)
             return [categories];
         },
-        tag: async ( parent, args ) => {
-            let tags = await TagService.getTag(parent.tag)
+        tag: async ( parent, args, { loaders } ) => {
+            const tags = await loaders.tag.load( parent.tag.toString() );
+            // let tags = await TagService.getTag(parent.tag)
             return [tags];
         },
-        brand: async ( parent, args ) => {
-            let brands = await BrandService.getBrand(parent.brand)
+        brand: async ( parent, args, { loaders } ) => {
+            const brands = await loaders.brand.load( parent.brand.toString() );
+            // let brands = await BrandService.getBrand(parent.brand)
             return [brands];
         },
-        user: async ( parent, args ) => {
-            let user = await UserService.getUser(parent.user)
+        user: async ( parent, args, { loaders } ) => {
+            const user = await loaders.user.load( parent.user.toString() );
+            // let user = await UserService.getUser(parent.user.toString())
             return user;
         },
         

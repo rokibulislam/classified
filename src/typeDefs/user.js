@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express')
 module.exports =  gql`
 
     extend type Query {
-        users: [User!],
+        users( cursor: String, limit: Int ): UserFeed!,
         user: User,
     }
 
@@ -34,6 +34,11 @@ module.exports =  gql`
         signup( input: signupInput ) : User
         login( input: loginInput ) : Token
         sendForgotPasswordEmail(email: String!): Boolean
+    }
+
+    type UserFeed {
+        userFeed: [User!]
+        pageInfo: PageInfo
     }
 
     type User {

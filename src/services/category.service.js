@@ -24,10 +24,18 @@ const deleteCategory = async ( id ) => {
     return Category.findOneAndDelete( { _id: id } )
 }
 
+const getbatchCategories = async (categoryIds) => {
+    // console.log('keys====', userIds);
+    const categories = await Category.find({ _id: { $in: categoryIds } });
+    return categories;
+    // return userIds.map(userId => users.find(user => user.id === userId));
+}
+
 module.exports = {
     getCategories,
     getCategory,
     createCategory,
     updateCategory,
     deleteCategory,
+    getbatchCategories
 }

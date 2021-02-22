@@ -1,10 +1,34 @@
 const Post = require ('../models/post')
 const PubSub = require('../subscription')
 const { postEvents } = require('../subscription/events');
+const { stringToBase64, base64ToString  } = require('../helper/index')
 
-const getPosts = async () => {
-    let posts = await Post.find();
-    return posts
+const getPosts = async ( cursor, limit ) => {
+    try {
+        const query = { }
+        
+        if (cursor) {
+            query['_id'] = {
+              '$lt': base64ToString(cursor)
+            }
+        }
+
+        let posts = await Post.find(query).sort({ _id: -1 }).limit(limit + 1);;
+
+        const hasNextPage = posts.length > limit;
+        posts = hasNextPage ? posts.slice(0, -1) : posts;
+
+        return{
+            postFeed : posts,
+            pageInfo : {
+                nextPageCursor: hasNextPage ? stringToBase64(posts[posts.length - 1].id) : null,
+                hasNextPage: hasNextPage
+            }
+        }
+    } catch( error ) {
+        console.log( error )
+        throw error;
+    }
 }
 
 const getPost = async (id) => {

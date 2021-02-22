@@ -9,7 +9,10 @@ const PostService = require('../services/post.service')
 
 module.exports = {
     Query: {
-        users: () => UserService.getUsers(),
+        users: async (_,{ cursor, limit = 10 }, { email }) => {
+            return UserService.getUsers( cursor, limit)
+        },
+        // users: () => UserService.getUsers(),
         user: combineResolvers( isAuthenticated, (_, __, { loggedInUserId } ) => {
           return  UserService.getUser(loggedInUserId);
         })

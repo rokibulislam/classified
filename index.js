@@ -3,6 +3,8 @@ const { ApolloServer, gql } = require('apollo-server-express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const dotEnv = require('dotenv')
+const Dataloader = require('dataloader');
+
 const app = express();
 
 //set env variables
@@ -21,6 +23,12 @@ const resolvers = require('./src/resolvers');
 const typeDefs = require('./src/typeDefs');
 const { verifyUser } = require('./src/context')
 
+const { getbatchUsers } = require('./src/services/user.service')
+const { getbatchBrands } = require('./src/services/brand.service')
+const { getbatchTags } = require('./src/services/tag.service')
+const { getbatchCategories } = require('./src/services/category.service')
+
+
 const apolloServer =  new ApolloServer({
     typeDefs,
     resolvers,
@@ -32,6 +40,13 @@ const apolloServer =  new ApolloServer({
           contextObj.email = req.email;
           contextObj.loggedInUserId = req.loggedInUserId;
         }
+
+        contextObj.loaders = {
+            user: new Dataloader(keys => getbatchUsers( keys ) ),
+            brand: new Dataloader(keys => getbatchBrands( keys ) ),
+            tag: new Dataloader(keys => getbatchTags( keys ) ),
+            category: new Dataloader(keys => getbatchCategories( keys ) ),
+        };
 
         return contextObj;
     },

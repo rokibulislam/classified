@@ -23,10 +23,19 @@ const deleteBrand = async ( id ) => {
     return Brand.findOneAndDelete( { _id: id } )
 }
 
+const getbatchBrands = async (brandIds) => {
+    // console.log('keys====', userIds);
+    const brands = await Brand.find({ _id: { $in: brandIds } });
+    return brands;
+    // return userIds.map(userId => users.find(user => user.id === userId));
+}
+
+
 module.exports = {
     getBrands,
     getBrand,
     createBrand,
     updateBrand,
     deleteBrand,
+    getbatchBrands
 }

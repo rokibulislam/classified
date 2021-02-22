@@ -23,10 +23,19 @@ const deleteTag = async ( id ) => {
     return Tag.findOneAndDelete( { _id: id } )
 }
 
+
+const getbatchTags = async (tagIds) => {
+    // console.log('keys====', userIds);
+    const tags = await Tag.find({ _id: { $in: tagIds } });
+    return tags;
+    // return userIds.map(userId => users.find(user => user.id === userId));
+}
+
 module.exports = {
     getTags,
     getTag,
     createTag,
     updateTag,
     deleteTag,
+    getbatchTags
 }

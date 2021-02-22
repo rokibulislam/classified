@@ -15,6 +15,7 @@ const postSchema = new Schema(
             type: String,
             required: true
         },
+        
         body: {
             type: String,
             required: String
@@ -22,6 +23,11 @@ const postSchema = new Schema(
 
         price: {
             type: Number
+        },
+
+        featuredImage: {
+            type: String,
+            required: false
         },
 
         photo: {

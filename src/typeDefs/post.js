@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express')
 module.exports =  gql`
 
     extend type Query {
-        posts: [Post!],
+        posts( cursor: String, limit: Int ): PostFeed!,
         post(id: ID!): Post,
     }
 
@@ -29,7 +29,19 @@ module.exports =  gql`
         user: User! 
         category: [Category]
         tag: [Tag]
-        brand: [Brand]
+        brand: [Brand],
+        createdAt: Date!,
+        updatedAt:  Date!
+    }
+
+    type PostFeed {
+        postFeed: [Post!]
+        pageInfo: PageInfo
+    }
+
+    type PageInfo {
+        nextPageCursor: String
+        hasNextPage: Boolean
     }
 
     extend type Subscription {
