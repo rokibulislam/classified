@@ -1,23 +1,66 @@
 version: "3.9"  # optional since v1.27.0
 services:
-  web:
-    container_name: docker-classified
+  classified:
+    container_name: classified
     restart: always
     build: .
     ports:
-      - "3001:3001"
+      - "3000:3000"
+    networks:
+      - mynet
     links:
       - mongo
-    command: npm run dev
+    volumes:
+      - classified_data:/usr/share/classified/data
+    depends_on: 
+      - mongo
+      - elasticsearch
+      - kibana
   mongo:
     container_name: mongo
     restart: always
     image: mongo
     ports: 
       - "27018:27017"
+    networks:
+      - mynet
+    volumes: 
+      - mongo_data:/data/db
+  elasticsearch:
+    image: elasticsearch:7.9.2
+    container_name: elasticsearch
+    environment: 
+      - discovery.type=single-node
+    ports: 
+      - "9200:9200"
+    networks:
+      - mynet
+    volumes: 
+      - elasticsearch_data:/usr/share/elasticsearch/data
   
+  kibana:
+    image: kibana:7.9.2
+    container_name: kibana
+    ports: 
+      - "5601:5601"
+    networks:
+      - mynet
+    volumes: 
+      - kibana_data:/usr/share/kibana/data
+  
+
   redis:
     image: redis
     container_name: cache
     expose:
       - 6379
+
+networks:
+  mynet:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  elasticsearch_data:
+  kibana_data:
+  classified_data:

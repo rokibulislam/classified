@@ -1,0 +1,9 @@
+node_modules/
+build/
+dist/
+tests/
+__tests__/
+__mocks__/
+coverage
+scripts
+.eslintrc.js
