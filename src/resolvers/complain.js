@@ -1,7 +1,5 @@
 const { combineResolvers } = require('graphql-resolvers')
-const { posts, users, categories, tags, brands } =  require('../constants')
-const ComplainModel = require('../models/complain')
-const ComplainService = require('../services/complaain.service')
+const ComplainService = require('../services/complain.service')
 const PubSub = require('../subscription')
 const { complainEvents } = require('../subscription/events');
 
@@ -13,11 +11,7 @@ module.exports = {
         complains: () => ComplainService.getComplains(),
         complain: (_, { id } ) => ComplainService.getComplain(id),
     },
-
-    Package: {
-
-    },
-
+    
     Mutation: {
         createComplain: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {
             return ComplainService.createComplain(input);   

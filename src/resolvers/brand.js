@@ -1,6 +1,4 @@
 const { combineResolvers } = require('graphql-resolvers')
-const { posts, users, categories, tags, brands } =  require('../constants')
-const BrandModel = require('../models/brand')
 const BrandService = require('../services/brand.service')
 const PostService = require('../services/post.service')
 

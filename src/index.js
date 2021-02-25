@@ -4,9 +4,19 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const dotEnv = require('dotenv')
 const Dataloader = require('dataloader');
-let elasticsearch = require('elasticsearch');
-
+const elasticsearch = require('elasticsearch');
+const swaggerUi = require('swagger-ui-express');
 const app = express();
+
+const {logger} = require('./helper/logger');
+//docs
+const swaggerDocument = require('../swagger.json');
+
+var options = {
+  explorer: true
+};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 //set env variables
 dotEnv.config();
@@ -23,7 +33,7 @@ connection();
 // elasticconnection();
 
 const esclient = new elasticsearch.Client({
-    host: 'http://localhost:9200',
+    host: process.env.ELASTIC_URL,
     log: 'trace',
     apiVersion: '7.2'
 });

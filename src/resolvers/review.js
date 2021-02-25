@@ -1,5 +1,4 @@
 const { combineResolvers } = require('graphql-resolvers')
-const review = require('../typeDefs/review');
 const ReviewService = require('../services/review.service')
 const { isAuthenticated } = require( '../middlewares')
 

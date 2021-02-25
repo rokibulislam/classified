@@ -9,29 +9,13 @@ const { isAuthenticated } = require( '../middlewares')
 const PubSub = require('../subscription')
 const { postEvents } = require('../subscription/events');
 
-const { createesPost } = require( '../elasticService/posts' );
+const { createesPost, getesPosts } = require( '../elasticService/posts' );
 
 module.exports = {
     
     Query: {
         esposts: async (_,{ cursor, limit = 3 }, { email, esClient }) => {
-           
-            try {
-               
-                let response = await esClient.search({
-                    index: "posts",
-                    body: {
-                        query: {
-                            match_all: {}
-                        }
-                    }
-                })
-                results = response.hits.hits.map(function(hit){ return hit._source });
-               
-                return results
-            } catch( ex ) {
-
-            }
+            return getesPosts( esClient );
         },
         posts: async (_,{ cursor, limit = 3 }, { email, esClient }) => {
 

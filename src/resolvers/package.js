@@ -1,8 +1,5 @@
 const { combineResolvers } = require('graphql-resolvers')
-const { posts, users, categories, tags, brands } =  require('../constants')
-const PackageModel = require('../models/package')
 const PackageService = require('../services/package.service')
-
 const { isAuthenticated } = require( '../middlewares')
 
 module.exports = {
