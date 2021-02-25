@@ -5,6 +5,7 @@ module.exports =  gql`
     extend type Query {
         posts( cursor: String, limit: Int ): PostFeed!,
         post(id: ID!): Post,
+        esposts( cursor: String, limit: Int ): [esPost]!
     }
 
     input createPostInput {
@@ -26,13 +27,19 @@ module.exports =  gql`
         id: ID!
         title: String!
         body: String!
-        user: User! 
+        user: User
         category: [Category]
         tag: [Tag]
-        brand: [Brand],
-        createdAt: Date!,
-        updatedAt:  Date!
+        brand: [Brand]
+        createdAt: Date
+        updatedAt:  Date
     }
+
+    type esPost {
+        title: String!
+        body: String!
+    }
+
 
     type PostFeed {
         postFeed: [Post!]

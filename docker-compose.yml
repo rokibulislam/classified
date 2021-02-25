@@ -1,0 +1,23 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  web:
+    container_name: docker-classified
+    restart: always
+    build: .
+    ports:
+      - "3001:3001"
+    links:
+      - mongo
+    command: npm run dev
+  mongo:
+    container_name: mongo
+    restart: always
+    image: mongo
+    ports: 
+      - "27018:27017"
+  
+  redis:
+    image: redis
+    container_name: cache
+    expose:
+      - 6379

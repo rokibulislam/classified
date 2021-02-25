@@ -9,10 +9,32 @@ const { isAuthenticated } = require( '../middlewares')
 const PubSub = require('../subscription')
 const { postEvents } = require('../subscription/events');
 
+const { createesPost } = require( '../elasticService/posts' );
+
 module.exports = {
     
     Query: {
-        posts: async (_,{ cursor, limit = 10 }, { email }) => {
+        esposts: async (_,{ cursor, limit = 3 }, { email, esClient }) => {
+           
+            try {
+               
+                let response = await esClient.search({
+                    index: "posts",
+                    body: {
+                        query: {
+                            match_all: {}
+                        }
+                    }
+                })
+                results = response.hits.hits.map(function(hit){ return hit._source });
+               
+                return results
+            } catch( ex ) {
+
+            }
+        },
+        posts: async (_,{ cursor, limit = 3 }, { email, esClient }) => {
+
             return PostService.getPosts(  cursor, limit )
         },
         post: async (_, { id }, { email } ) => {
@@ -46,8 +68,15 @@ module.exports = {
 
     Mutation: {
         // createPost: combineResolvers( isAuthenticated, async (_, { input }, { email } ) => {            
-        createPost: combineResolvers( isAuthenticated, async (_, { input }, { email, loggedInUserId } ) => {            
-            return PostService.createPost( input, loggedInUserId );
+        createPost: combineResolvers( isAuthenticated, async (_, { input }, { email, loggedInUserId, esClient } ) => {            
+            try {
+                let response = await PostService.createPost( input, loggedInUserId );
+                let esResult = await createesPost( esClient, response )
+                console.log( esResult );
+                return response
+            } catch( ex ) {
+
+            }
         }),
 
         updatePost: combineResolvers( isAuthenticated, async (_, { id, input }, { email } ) => {

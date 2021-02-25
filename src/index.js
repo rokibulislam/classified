@@ -4,29 +4,41 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const dotEnv = require('dotenv')
 const Dataloader = require('dataloader');
+let elasticsearch = require('elasticsearch');
 
 const app = express();
 
 //set env variables
 dotEnv.config();
 
-//cors
+// cors
 app.use(cors())
 app.use(express.json())
 
-const { connection } = require('./src/database/connection');
+const { connection } = require('./database/connection');
+const { elasticconnection } = require('./database/elasticconnection');
 
 //db connectivity
 connection();
+// elasticconnection();
 
-const resolvers = require('./src/resolvers');
-const typeDefs = require('./src/typeDefs');
-const { verifyUser } = require('./src/context')
+const esclient = new elasticsearch.Client({
+    host: 'http://localhost:9200',
+    log: 'trace',
+    apiVersion: '7.2'
+});
 
-const { getbatchUsers } = require('./src/services/user.service')
-const { getbatchBrands } = require('./src/services/brand.service')
-const { getbatchTags } = require('./src/services/tag.service')
-const { getbatchCategories } = require('./src/services/category.service')
+// console.log( esclient );
+
+
+const resolvers = require('./resolvers');
+const typeDefs = require('./typeDefs');
+const { verifyUser } = require('./context')
+
+const { getbatchUsers } = require('./services/user.service')
+const { getbatchBrands } = require('./services/brand.service')
+const { getbatchTags } = require('./services/tag.service')
+const { getbatchCategories } = require('./services/category.service')
 
 
 const apolloServer =  new ApolloServer({
@@ -34,11 +46,12 @@ const apolloServer =  new ApolloServer({
     resolvers,
     context: async ( { req, connection } ) => {
         const contextObj = {};
-
+        // console.log( esclient );
         if (req) {
           await verifyUser(req)
           contextObj.email = req.email;
           contextObj.loggedInUserId = req.loggedInUserId;
+          contextObj.esClient = esclient;
         }
 
         contextObj.loaders = {
@@ -62,7 +75,7 @@ apolloServer.applyMiddleware({
     path: '/graphql'
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 app.use( '/', (req,res,next) => {
     res.send({ message: 'Hello' });
