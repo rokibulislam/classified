@@ -1,0 +1,225 @@
+type Query {
+    attributes: [Attribute!],
+    attribute(id: ID!): Attribute,
+    brands: [Brand!],
+    brand(id: ID!): Brand
+    categories: [Category!],
+    category(id: ID!): Category,
+    complains: [Complain!],
+    complain(id: ID!): Complain,
+    coupons: [Coupon!],
+    coupon(id: ID!): Coupon,
+    packages: [Package!],
+    package(id: ID!): Package,
+    posts( cursor: String, limit: Int ): PostFeed!,
+    post(id: ID!): Post,
+    esposts( cursor: String, limit: Int ): [esPost]!
+    reviews: [Review!],
+    review(id: ID!): Review,
+    tags: [Tag!],
+    tag(id: ID!): Tag,
+    users( cursor: String, limit: Int ): UserFeed!,
+    user: User,
+}
+  
+type Mutation {
+    createAttribute( input: createAttributeInput ) : Attribute
+    updateAttribute(id: ID!, input: createAttributeInput ) : Attribute
+    deleteAttribute(id: ID!) : Attribute
+    createBrand( input: createBrandInput ) : Brand
+    updateBrand(id: ID!, input: createBrandInput ) : Brand
+    deleteBrand(id: ID!) : Brand
+    createCategory( input: createCategoryInput ) : Category
+    updateCategory(id: ID!, input: createCategoryInput ) : Category
+    deleteCategory(id: ID!) : Category
+    createComplain( input: createComplainInput ) : Complain
+    updateComplain(id: ID!, input: createComplainInput ) : Complain
+    deleteComplain(id: ID!) : Complain
+    createCoupon( input: createCouponInput ) : Coupon
+    updateCoupon(id: ID!, input: createCouponInput ) : Coupon
+    deleteCoupon(id: ID!) : Coupon
+    createPackage( input: createPackageInput ) : Package
+    updatePackage(id: ID!, input: createPackageInput ) : Package
+    deletePackage(id: ID!) : Package
+    createPost( input: createPostInput ) : Post
+    updatePost(id: ID!, input: createPostInput ) : Post
+    deletePost(id: ID!) : Post
+    createReview( input: createReviewInput ) : Review
+    updateReview(id: ID!, input: createReviewInput ) : Review
+    deleteReview(id: ID!) : Review
+    createTag( input: createTagInput ) : Tag
+    updateTag(id: ID!, input: createTagInput ) : Tag
+    deleteTag(id: ID!) : Tag
+    createUser( input: createUserInput ) : User
+    updateUser(id: ID!, input: createUserInput ) : User
+    deleteUser(id: ID!) : User
+    signup( input: signupInput ) : User
+    login( input: loginInput ) : Token
+    sendForgotPasswordEmail(email: String!): Boolean
+}
+
+type Subscription {
+    userCreated: User
+    postCreated: Post
+    complainCreated: Complain
+}
+
+input createAttributeInput {
+    name: String!
+}
+
+input createBrandInput {
+    name: String!
+    description: String!
+}
+
+input createCategoryInput {
+    name: String!
+    description: String!
+}
+
+input createComplainInput {
+    description: String!
+}
+
+input createCouponInput {
+    name: String!
+}
+
+input createPackageInput {
+    name: String!,
+    amount: String!,
+    duration: String!,
+    allowedpost: String!
+}
+
+input createPostInput {
+    title: String!
+    body: String!
+    category: String
+    tag: String
+    brand: String
+}
+
+input createReviewInput {
+    name: String!
+    rating: String!
+    comment: String!
+}
+
+input createTagInput {
+    name: String!
+    description: String!
+}
+
+input signupInput {
+    name: String!
+    email: String!
+    password: String!
+}
+
+input loginInput {
+    email: String!
+    password: String!
+}
+
+input createUserInput {
+    name: String!
+    email: String!
+}
+
+type Attribute {
+    id: ID!
+    name: String!
+}
+
+type Brand {
+    id: ID!
+    name: String!
+    description: String!
+    posts: [Post!]
+}
+
+type Category {
+    id: ID!
+    name: String!
+    description: String!
+    posts: [Post!]
+}
+
+type Complain {
+    id: ID!
+    description: String!
+}
+
+type Coupon {
+    id: ID!
+    name: String!
+}
+
+type Package {
+    id: ID!
+    name: String!
+    amount: String!
+    duration: String!
+    allowedpost: String!
+}
+
+
+type Post {
+    id: ID!
+    title: String!
+    body: String!
+    user: User
+    category: [Category]
+    tag: [Tag]
+    brand: [Brand]
+    createdAt: Date
+    updatedAt:  Date
+}
+
+type esPost {
+    title: String!
+    body: String!
+}
+
+
+type PostFeed {
+    postFeed: [Post!]
+    pageInfo: PageInfo
+}
+
+type PageInfo {
+    nextPageCursor: String
+    hasNextPage: Boolean
+}
+
+type Review {
+    id: ID!
+    name: String!
+    rating: String!
+    comment: String!
+}
+
+type Tag {
+    id: ID!
+    name: String!
+    description: String!
+    posts: [Post!]
+}
+
+type UserFeed {
+    userFeed: [User!]
+    pageInfo: PageInfo
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    posts: [Post!]
+}
+
+type Token {
+    token: String!
+}

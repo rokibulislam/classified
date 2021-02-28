@@ -1,3 +1,3 @@
-const { PubSub } = require('apollo-server-express')
+import { PubSub } from 'apollo-server-express'
 
-module.exports = new PubSub();
+export default new PubSub();

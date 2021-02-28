@@ -1,5 +1,5 @@
 const { gql } = require('apollo-server-express')
-
+const { importSchema } = require('graphql-import')
 const userTypeDefs = require('./user')
 const postTypeDefs = require('./post')
 const categoryTypeDefs = require('./category')
@@ -10,6 +10,9 @@ const complainTypeDefs = require('./complain')
 const reviewTypeDefs = require('./review')
 const attributeTypeDefs = require('./attribute')
 const couponTypeDefs = require('./coupon')
+
+// const attributeTypeDefs = importSchema('./attribute.graphql');
+
 
 const typeDefs = gql`
   scalar Date
