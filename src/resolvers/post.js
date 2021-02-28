@@ -64,6 +64,9 @@ module.exports = {
         }),
 
         updatePost: combineResolvers( isAuthenticated, async (_, { id, input }, { email } ) => {
+            if( !email ) {
+                throw new Error('You Must Login First')
+            }
             return PostService.updatePost( id , input )
         }),
 

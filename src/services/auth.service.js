@@ -11,7 +11,7 @@ const login = async ( input ) => {
         });
 
         if( !user ){
-            throw new Error('Email not found' )
+            throw new Error('No User Found with This Email' )
         }
 
         const ispasswordvalid =  await bcrypt.compare(input.password, user.password)
