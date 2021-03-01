@@ -6,6 +6,7 @@ const dotEnv = require('dotenv')
 const Dataloader = require('dataloader');
 const elasticsearch = require('elasticsearch');
 const swaggerUi = require('swagger-ui-express');
+const redis = require('redis')
 const app = express();
 
 const {logger} = require('./helper/logger');
@@ -27,10 +28,14 @@ app.use(express.json())
 
 const { connection } = require('./database/connection');
 const { elasticconnection } = require('./database/elasticconnection');
+const { Redisclient } = require('./database/redisconnection');
 
 //db connectivity
 connection();
 // elasticconnection();
+// Redisclient
+// redisclient();
+
 
 const esclient = new elasticsearch.Client({
     host: process.env.ELASTIC_URL,
