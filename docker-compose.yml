@@ -10,8 +10,6 @@ services:
       - mynet
     links:
       - mongo
-    volumes:
-      - classified_data:/usr/share/classified/data
     depends_on: 
       - mongo
       - elasticsearch
@@ -25,7 +23,7 @@ services:
     networks:
       - mynet
     volumes: 
-      - mongo_data:/data/db
+      - ./data:/data/db
   elasticsearch:
     image: elasticsearch:7.9.2
     container_name: elasticsearch
