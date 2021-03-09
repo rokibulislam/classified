@@ -27,8 +27,13 @@ const deleteCategory = async ( id ) => {
 const getbatchCategories = async (categoryIds) => {
     // console.log('keys====', userIds);
     const categories = await Category.find({ _id: { $in: categoryIds } });
+   
     return categories;
     // return userIds.map(userId => users.find(user => user.id === userId));
+}
+
+const bulkdeleteCategory = async ( id ) => {
+    return Category.deleteMany({ _id: id })
 }
 
 module.exports = {
@@ -37,5 +42,6 @@ module.exports = {
     createCategory,
     updateCategory,
     deleteCategory,
-    getbatchCategories
+    getbatchCategories,
+    bulkdeleteCategory
 }

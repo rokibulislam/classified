@@ -55,13 +55,15 @@ const createPost = async ( input, loggedInUserId ) => {
 }
 
 const updatePost = async ( id, post ) => {
-    console.log( 'post update ');
-    console.log( post );
     return Post.findOneAndUpdate( { _id: id }, post, { new: true } )
 }
 
 const deletePost = async ( id ) => {
     return Post.findOneAndDelete( { _id: id } )
+}
+
+const bulkdeletePost = async ( id ) => {
+    return await Post.deleteMany({ _id: id })
 }
 
 module.exports = {
@@ -70,5 +72,6 @@ module.exports = {
     createPost,
     updatePost,
     deletePost,
-    postbymeta
+    postbymeta,
+    bulkdeletePost
 }

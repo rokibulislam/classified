@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const { ApolloServer, gql } = require('apollo-server-express')
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -19,16 +20,45 @@ var options = {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
+// routes 
+
+let attributeRoutes = require('./routes/attribute')
+let authRoutes = require('./routes/auth')
+let brandRoutes = require('./routes/brand')
+let categoryRoutes = require('./routes/category')
+let complainRoutes = require('./routes/complain')
+let couponRoutes = require('./routes/coupon')
+let messageRoutes = require('./routes/message')
+let packageRoutes = require('./routes/package')
+let postsRoutes = require('./routes/posts')
+let reviewRoutes = require('./routes/review')
+let tagRoutes = require('./routes/tag')
+let userRoutes = require('./routes/user')
+
+app.use('/api/attribute', attributeRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/brand', brandRoutes)
+app.use('/api/category', categoryRoutes)
+app.use('/api/complain', complainRoutes)
+app.use('/api/coupon', couponRoutes)
+app.use('/api/message', messageRoutes)
+app.use('/api/package', packageRoutes)
+app.use('/api/post', postsRoutes)
+app.use('/api/review', reviewRoutes)
+app.use('/api/tag', tagRoutes)
+app.use('/api/user', userRoutes)
+
 //set env variables
 dotEnv.config();
 
 // cors
 app.use(cors())
 app.use(express.json())
+app.use(bodyParser.json({ type: 'application/*+json' }))
 
 const { connection } = require('./database/connection');
 const { elasticconnection } = require('./database/elasticconnection');
-const { Redisclient } = require('./database/redisconnection');
+// const { Redisclient } = require('./database/redisconnection');
 
 //db connectivity
 connection();

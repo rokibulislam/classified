@@ -17,6 +17,7 @@ module.exports = gql`
         createReview( input: createReviewInput ) : Review
         updateReview(id: ID!, input: createReviewInput ) : Review
         deleteReview(id: ID!) : Review
+        bulkdeleteReview(id: ID!): Review
     }
 
     type Review {

@@ -16,6 +16,7 @@ module.exports = gql`
         createTag( input: createTagInput ) : Tag
         updateTag(id: ID!, input: createTagInput ) : Tag
         deleteTag(id: ID!) : Tag
+        bulkdeleteTag(id: [ID!]) : Tag
     }
 
 

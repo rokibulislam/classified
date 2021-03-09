@@ -33,6 +33,10 @@ module.exports = {
 
         deleteBrand: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
             return BrandService.deleteBrand(id)
+        }),
+
+        bulkdeleteBrand: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            return BrandService.bulkdeleteBrand(id)
         })
     }
 }

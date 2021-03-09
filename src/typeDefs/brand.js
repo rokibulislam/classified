@@ -16,6 +16,7 @@ module.exports = gql`
         createBrand( input: createBrandInput ) : Brand
         updateBrand(id: ID!, input: createBrandInput ) : Brand
         deleteBrand(id: ID!) : Brand
+        bulkdeleteBrand( id: [ ID! ] ) : Brand
     }
 
     type Brand {

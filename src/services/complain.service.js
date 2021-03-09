@@ -23,10 +23,15 @@ const deleteComplain = async ( id ) => {
     return Complain.findOneAndDelete( { _id: id } )
 }
 
+const bulkdeleteComplain = async ( id ) => {
+    return Complain.deleteMany({ _id: id })
+}
+
 module.exports = {
     getComplains,
     getComplain,
     createComplain,
     updateComplain,
     deleteComplain,
+    bulkdeleteComplain
 }

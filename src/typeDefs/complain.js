@@ -15,6 +15,7 @@ module.exports = gql`
         createComplain( input: createComplainInput ) : Complain
         updateComplain(id: ID!, input: createComplainInput ) : Complain
         deleteComplain(id: ID!) : Complain
+        bulkdeleteComplain( id: [ ID! ] ) : Complain
     }
 
     type Complain {

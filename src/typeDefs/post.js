@@ -20,6 +20,7 @@ module.exports =  gql`
         createPost( input: createPostInput ) : Post
         updatePost(id: ID!, input: createPostInput ) : Post
         deletePost(id: ID!) : Post
+        bulkdeletePost( id: [ ID! ] ) : Post
     }
 
 

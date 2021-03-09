@@ -31,11 +31,16 @@ const getbatchTags = async (tagIds) => {
     // return userIds.map(userId => users.find(user => user.id === userId));
 }
 
+const bulkdeleteTag = async ( id ) => {
+    return await Tag.deleteMany({ _id: id })
+}
+
 module.exports = {
     getTags,
     getTag,
     createTag,
     updateTag,
     deleteTag,
-    getbatchTags
+    getbatchTags,
+    bulkdeleteTag
 }

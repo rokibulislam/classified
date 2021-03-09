@@ -21,6 +21,10 @@ module.exports = {
 
         deleteCoupon: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
             return CouponService.deleteCoupon(id)
+        }),
+
+        bulkdeleteCoupon: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            return CouponService.bulkdeleteCoupon(id)
         })
     }
 }

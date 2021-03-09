@@ -18,6 +18,7 @@ module.exports = gql`
         createPackage( input: createPackageInput ) : Package
         updatePackage(id: ID!, input: createPackageInput ) : Package
         deletePackage(id: ID!) : Package
+        bulkdeletePackage( id: [ ID! ] ) : Package
     }
 
     type Package {

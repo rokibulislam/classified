@@ -72,6 +72,14 @@ module.exports = {
 
         deletePost: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
             return PostService.deletePost( id  )
+        }),
+
+        bulkdeletePost: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            try {
+                return  await PostService.bulkdeletePost( id  )
+            } catch( ex ) {
+                return ex;
+            }
         })
     },
 

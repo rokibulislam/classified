@@ -31,6 +31,10 @@ module.exports = {
 
         deleteCategory: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
             return CategoryService.deleteCategory(id)
+        }),
+
+        bulkdeleteCategory: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            return CategoryService.bulkdeleteCategory(id)
         })
     }
 }

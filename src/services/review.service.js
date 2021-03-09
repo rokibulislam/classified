@@ -23,10 +23,15 @@ const deleteReview = async ( id ) => {
     return Review.findOneAndDelete( { _id: id } )
 }
 
+const bulkdeleteReview = async ( id ) => {
+    return Review.deleteMany({ _id: id })
+}
+
 module.exports = {
     getReviews,
     getReview,
     createReview,
     updateReview,
     deleteReview,
+    bulkdeleteReview
 }

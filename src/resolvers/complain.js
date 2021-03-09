@@ -23,6 +23,10 @@ module.exports = {
 
         deleteComplain: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
             return ComplainService.deleteComplain(id)
+        }),
+
+        bulkdeleteComplain: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            return ComplainService.bulkdeleteComplain(id)
         })
     },
 

@@ -1,11 +1,15 @@
 const Brand = require ('../models/brand')
 
 const getBrands = async () => {
-    return Brand.find()
+    let result = await Brand.find()
+
+    return result
 }
 
 const getBrand = async (id) => {
-    return Brand.findById(id)
+    let result =  await Brand.findById(id)
+
+    return result
 }
 
 const createBrand = async ( input ) => {
@@ -30,6 +34,9 @@ const getbatchBrands = async (brandIds) => {
     // return userIds.map(userId => users.find(user => user.id === userId));
 }
 
+const bulkdeleteBrand = async ( id ) => {
+    return Brand.deleteMany({ _id: id })
+}
 
 module.exports = {
     getBrands,
@@ -37,5 +44,6 @@ module.exports = {
     createBrand,
     updateBrand,
     deleteBrand,
-    getbatchBrands
+    getbatchBrands,
+    bulkdeleteBrand
 }

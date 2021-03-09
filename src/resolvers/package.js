@@ -24,6 +24,10 @@ module.exports = {
 
         deletePackage: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
             return PackageService.deletePackage(id)
+        }),
+
+        bulkdeletePackage: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            return PackageService.bulkdeletePackage(id)
         })
     }
 }

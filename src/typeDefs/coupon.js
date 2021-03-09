@@ -15,6 +15,7 @@ module.exports = gql`
         createCoupon( input: createCouponInput ) : Coupon
         updateCoupon(id: ID!, input: createCouponInput ) : Coupon
         deleteCoupon(id: ID!) : Coupon
+        bulkdeleteCoupon( id: [ ID! ] ) : Coupon
     }
 
     type Coupon {

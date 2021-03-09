@@ -21,6 +21,14 @@ module.exports = {
 
         deleteAttribute: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
             return AttributeService.deleteAttribute(id)
+        }),
+
+        bulkdeleteAttribute: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            try {
+                return  await AttributeService.bulkdeleteAttribute( id )
+            } catch( ex ) {
+                return ex;
+            }
         })
     }
 }

@@ -23,10 +23,15 @@ const deletePackage = async ( id ) => {
     return Package.findOneAndDelete( { _id: id } )
 }
 
+const bulkdeletePackage = async ( id ) => {
+    return Package.deleteMany({ _id: id })
+}
+
 module.exports = {
     getPackages,
     getPackage,
     createPackage,
     updatePackage,
     deletePackage,
+    bulkdeletePackage
 }

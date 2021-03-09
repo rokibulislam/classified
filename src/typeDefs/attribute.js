@@ -15,6 +15,7 @@ module.exports = gql`
         createAttribute( input: createAttributeInput ) : Attribute
         updateAttribute(id: ID!, input: createAttributeInput ) : Attribute
         deleteAttribute(id: ID!) : Attribute
+        bulkdeleteAttribute( id: [ ID! ] ) : Attribute
     }
 
     type Attribute {

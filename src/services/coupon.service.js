@@ -23,10 +23,15 @@ const deleteCoupon = async ( id ) => {
     return Coupon.findOneAndDelete( { _id: id } )
 }
 
+const bulkdeleteCoupon = async ( id ) => {
+    return Coupon.deleteMany({ _id: id })
+}
+
 module.exports = {
     getCoupons,
     getCoupon,
     createCoupon,
     updateCoupon,
     deleteCoupon,
+    bulkdeleteCoupon
 }

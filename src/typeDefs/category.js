@@ -16,6 +16,7 @@ module.exports = gql`
         createCategory( input: createCategoryInput ) : Category
         updateCategory(id: ID!, input: createCategoryInput ) : Category
         deleteCategory(id: ID!) : Category
+        bulkdeleteCategory( id: [ ID! ] ) : Category
     }
 
     type Category {

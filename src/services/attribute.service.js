@@ -1,7 +1,8 @@
 const Attribute = require ('../models/attribute')
 
 const getAttributes = async () => {
-    return Attribute.find()
+    let result = await Attribute.find()
+    return result
 }
 
 const getAttribute = async (id) => {
@@ -23,10 +24,15 @@ const deleteAttribute = async ( id ) => {
     return Attribute.findOneAndDelete( { _id: id } )
 }
 
+const bulkdeleteAttribute = async ( id ) => {
+    return Attribute.deleteMany({ _id: id })
+}
+
 module.exports = {
     getAttributes,
     getAttribute,
     createAttribute,
     updateAttribute,
     deleteAttribute,
+    bulkdeleteAttribute
 }

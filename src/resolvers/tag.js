@@ -30,6 +30,11 @@ module.exports = {
 
         deleteTag: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
             return TagService.deleteTag(id);
-        })
+        }),
+
+        bulkdeleteTag: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            return TagService.deleteTag(id);
+        }),
+        
     }
 }

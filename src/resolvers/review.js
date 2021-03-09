@@ -21,6 +21,10 @@ module.exports = {
 
         deleteReview: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
             return ReviewService.deleteReview(id);
+        }),
+
+        bulkdeleteReview: combineResolvers( isAuthenticated, async (_, { id }, { email } ) => {
+            return ReviewService.bulkdeleteReview(id)
         })
     }
 }
