@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const express_1 = tslib_1.__importDefault(require("express"));
+const coupon_1 = tslib_1.__importDefault(require("../controller/coupon"));
+const router = express_1.default.Router();
+router.get('/', coupon_1.default.getCoupons);
+router.get('/:id', coupon_1.default.getCoupon);
+router.post('/', coupon_1.default.createCoupon);
+router.put('/', coupon_1.default.updateCoupon);
+router.delete('/', coupon_1.default.deleteCoupon);
+exports.default = router;

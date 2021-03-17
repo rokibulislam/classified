@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const express_1 = tslib_1.__importDefault(require("express"));
+const review_1 = tslib_1.__importDefault(require("../controller/review"));
+const router = express_1.default.Router();
+router.get('/', review_1.default.getReviews);
+router.get('/:id', review_1.default.getReview);
+router.post('/', review_1.default.createReview);
+router.put('/', review_1.default.updateReview);
+router.delete('/', review_1.default.deleteReview);
+exports.default = router;

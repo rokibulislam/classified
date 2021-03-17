@@ -2,9 +2,32 @@
   "name": "classified",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "webpack.dev.config.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "run-s build && cross-env-shell \"NODE_ENV=$NODE_ENV\" node dist/src/app.js",
+    "dev": "cross-env NODE_ENV=development nodemon",
+    "build": "run-s clean && run-p build:*",
+    "build:main": "tsc -p tsconfig.prod.json",
+    "fix": "run-s fix:*",
+    "fix:prettier": "prettier \"src/**/*.ts\" --write",
+    "lint": "eslint . --ext .ts,.js",
+    "fix:lint": "eslint . --ext .ts,.js --fix",
+    "test": "cross-env NODE_ENV=test node node_modules/jest/bin/jest --runInBand",
+    "test:watch": "cross-env NODE_ENV=test node node_modules/jest/bin/jest --watch --runInBand",
+    "test:cover": "cross-env NODE_ENV=test jest --coverage=true --runInBand",
+    "clean": "rimraf dist"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint . --ext .ts,.js --fix",
+      "prettier \"src/**/*.ts\" --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run build"
+    }
   },
   "keywords": [],
   "author": "",
@@ -12,8 +35,10 @@
   "dependencies": {
     "@apollo/client": "^3.3.7",
     "@elastic/elasticsearch": "^7.11.0",
+    "@types/mongoose": "^5.10.3",
     "amqplib": "^0.7.0",
     "apollo-server-express": "^2.19.2",
+    "aws-sdk": "^2.853.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
@@ -25,21 +50,44 @@
     "graphql": "^15.5.0",
     "graphql-iso-date": "^3.6.1",
     "graphql-resolvers": "^0.4.2",
+    "graphql-tools": "^7.0.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.14",
     "nodemailer": "^6.5.0",
     "nodemon": "^2.0.7",
     "redis": "^3.0.2",
     "swagger-ui-express": "^4.1.6",
-    "typescript": "^4.1.3"
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",
+    "@types/express": "^4.17.11",
+    "@types/graphql-resolvers": "^0.3.0",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.31",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
     "babel-jest": "^26.3.0",
+    "copy-webpack-plugin": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "graphql-import": "^1.0.2",
+    "graphql-import-node": "0.0.4",
+    "husky": "^5.1.1",
+    "i": "^0.3.6",
     "jest": "^26.4.2",
+    "lint-staged": "^10.5.4",
+    "nodemon": "^2.0.7",
+    "npm": "^7.6.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
     "superagent": "^6.1.0",
     "supertest": "^5.0.0",
-    "winston": "^3.3.3"
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
   }
 }
