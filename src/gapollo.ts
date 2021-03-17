@@ -1,7 +1,7 @@
 import { ApolloServer, gql, PubSub } from 'apollo-server-express'
 import dataloader from 'dataloader';
-const elasticsearch = require('elasticsearch');
 
+const elasticsearch = require('elasticsearch');
 
 const esclient = new elasticsearch.Client({
     host: process.env.ELASTIC_URL,
@@ -9,8 +9,6 @@ const esclient = new elasticsearch.Client({
     apiVersion: '7.2'
 });
 
-// import resolvers from './resolvers';
-// import typeDefs from './typeDefs';
 import schema from './typeDefs/schema';
 import { verifyUser } from './context'
 
@@ -19,7 +17,6 @@ const BrandService  = require('./services/brand.service')
 const Tagservice  = require('./services/tag.service')
 const CategoryService = require('./services/category.service')
 
-
 interface IContextObject {
     email?: string;
     loggedInUserId?: string;
@@ -27,11 +24,10 @@ interface IContextObject {
     esClient?: any
 }
 
-const apolloServer =  new ApolloServer({
+ const apolloServer =  new ApolloServer({
     schema,
     context: async ( { req, connection } ) => {
         const contextObj: IContextObject = {};
-        // console.log( esclient );
         if (req) {
           await verifyUser(req)
           contextObj.email = req.email;
@@ -54,3 +50,5 @@ const apolloServer =  new ApolloServer({
         };
     }
 })
+
+export default apolloServer
