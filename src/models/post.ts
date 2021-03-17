@@ -1,7 +1,17 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose
+import { Document, model, Model, Schema, Types } from 'mongoose';
+import Brand from './brand'
+import Category from './category'
+import Tag from './tag'
+import User from './user'
 
-const Reviews = mongoose.Schema(
+interface IPost extends Document {
+    title: string,
+    body: string,
+    price: number,
+    featuredImage: string
+}
+
+const Reviews = new Schema(
     {
         name: { type: String, required: true },
         rating: { type: Number, required: true },
@@ -38,22 +48,22 @@ const postSchema = new Schema(
         reviews  : [Reviews],
 
         user: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Types.ObjectId,
             ref: 'User'
         },
 
         category: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Types.ObjectId,
             ref: 'Category'
         },
 
         tag: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Types.ObjectId,
             ref: 'Tag'
         },
 
         brand: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Types.ObjectId,
             ref: 'Brand'
         }
     },
@@ -62,4 +72,4 @@ const postSchema = new Schema(
     }
 )
 
-module.exports = mongoose.model( 'Post', postSchema )
+export default  model<IPost>( 'Post', postSchema )

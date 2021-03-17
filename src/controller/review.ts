@@ -2,9 +2,14 @@ import ReviewService from '../services/review.service'
 import { Request, Response } from 'express';
 
 class ReviewController {
+    service: any;
     
+    constructor() {
+        this.service  = ReviewService;
+    }
+
     public getReviews = async ( req: Request, res: Response ) : Promise<any> => {
-        let reviews = await ReviewService.getReviews()
+        let reviews = await this.service.getReviews()
     
         return res.send( {
             'data': reviews
@@ -12,25 +17,25 @@ class ReviewController {
     }
     
     public getReview = async ( req: Request, res: Response ) : Promise<any> => {
-        let review = await ReviewService.getReview(req.params.id)
+        let review = await this.service.getReview(req.params.id)
     
         return res.send(review)
     }
     
     public createReview = async ( req: Request, res: Response ) : Promise<any> => {
-        let review = await ReviewService.createReview(req.body)
+        let review = await this.service.createReview(req.body)
     
         return res.send(review)
     }
     
     public updateReview = async ( req: Request, res: Response ) : Promise<any> => {
-        let review = await ReviewService.updateReview(req.params.id,req.body)
+        let review = await this.service.updateReview(req.params.id,req.body)
         
         return res.send(review)
     }
     
     public deleteReview = async ( req: Request, res: Response ) : Promise<any> => {
-        let review = await ReviewService.deleteReview(req.params.id)
+        let review = await this.service.deleteReview(req.params.id)
     
         if ( !review )
             return res.status(404).send("The review with the given ID was not found.");
@@ -40,13 +45,3 @@ class ReviewController {
 }
 
 export default new ReviewController();
-
-/*
-export default {
-    getReviews,
-    getReview,
-    createReview,
-    updateReview,
-    deleteReview
-}
-*/

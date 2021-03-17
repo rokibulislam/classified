@@ -1,7 +1,7 @@
 import  { Document, model, Model, Schema } from 'mongoose';
 
 interface ICoupon extends Document {
-    description: string
+    name: string
 }
 const couponSchema = new Schema({
     name: {

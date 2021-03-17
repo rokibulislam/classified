@@ -1,3 +1,4 @@
 interface ICoupon {
-    
+    name: string
 }
+

@@ -1,3 +1,3 @@
 interface IComplain {
-    
+    description: string
 }

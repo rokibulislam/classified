@@ -1,0 +1,3 @@
+interface IAttibute {
+    name: string
+}

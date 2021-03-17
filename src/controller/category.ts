@@ -2,9 +2,14 @@ import CategoryService from '../services/category.service'
 import { Request, Response } from 'express';
 
 class CategoryController {
+    service: any;
+
+    constructor() {
+        this.service  = CategoryService;
+    }
 
     public getCategories = async ( req: Request, res: Response ) : Promise<any> => {
-        let categories = await CategoryService.getCategories()
+        let categories = await this.service.getCategories()
     
         return res.send({
             'data': categories
@@ -12,26 +17,26 @@ class CategoryController {
     }
 
     public getCategory = async ( req: Request, res: Response ) : Promise<any> => {
-        let category = await CategoryService.getCategory(req.params.id);
+        let category = await this.service.getCategory(req.params.id);
     
         return res.send(category)
     }
 
     public createCategory = async ( req: Request, res: Response ) : Promise<any> => {
-        let category = await CategoryService.createCategory(req.body)
+        let category = await this.service.createCategory(req.body)
 
         return res.send(category)
     }
 
     public updateCategory = async ( req: Request, res: Response ) : Promise<any> => {
         let id = req.params.id;
-        let category = await CategoryService.updateCategory( id,req.body )
+        let category = await this.service.updateCategory( id,req.body )
 
         return res.send(category)
     }
 
     public deleteCategory = async ( req: Request, res: Response ) : Promise<any> => {
-        let category = await CategoryService.deleteCategory(req.params.id)
+        let category = await this.service.deleteCategory(req.params.id)
 
         if ( !category )
             return res.status(404).send("The category with the given ID was not found.");
@@ -41,13 +46,3 @@ class CategoryController {
 }
 
 export default new CategoryController();
-
-/*
-export default {
-    getCategories,
-    getCategory,
-    createCategory,
-    updateCategory,
-    deleteCategory
-}
-*/

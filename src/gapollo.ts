@@ -30,8 +30,8 @@ interface IContextObject {
         const contextObj: IContextObject = {};
         if (req) {
           await verifyUser(req)
-          contextObj.email = req.email;
-          contextObj.loggedInUserId = req.loggedInUserId;
+        //   contextObj.email = req.email;
+        //   contextObj.loggedInUserId = req.loggedInUserId;
           contextObj.esClient = esclient;
         }
 
