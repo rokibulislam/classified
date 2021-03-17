@@ -1,32 +1,38 @@
 import Package from '../models/package'
 
-const getPackages = async () : Promise<any> => {
-    return Package.find()
+class PackageService {
+
+    public getPackages = async () : Promise<any> => {
+        return Package.find()
+    }
+
+    public getPackage = async ( id: string ) : Promise<any> => {
+        return Package.findById(id)
+    }
+
+    public createPackage = async ( input: any ) : Promise<any> => {
+        let pack = new Package({ ...input});
+        let result = pack.save();
+        
+        return result
+    }
+
+    public updatePackage = async (id: string, post: any): Promise<any> => {
+        return Package.findOneAndUpdate( { _id: id }, post, { new: true } )
+    }
+
+    public deletePackage = async ( id: string ) : Promise<any> => {
+        return Package.findOneAndDelete( { _id: id } )
+    }
+
+    public bulkdeletePackage = async ( id: string ) : Promise<any> => {
+        return Package.deleteMany({ _id: id })
+    }
 }
 
-const getPackage = async ( id: string ) : Promise<any> => {
-    return Package.findById(id)
-}
+export default new PackageService()
 
-const createPackage = async ( input: any ) : Promise<any> => {
-    let pack = new Package({ ...input});
-    let result = pack.save();
-    
-    return result
-}
-
-const updatePackage = async (id: string, post: any): Promise<any> => {
-    return Package.findOneAndUpdate( { _id: id }, post, { new: true } )
-}
-
-const deletePackage = async ( id: string ) : Promise<any> => {
-    return Package.findOneAndDelete( { _id: id } )
-}
-
-const bulkdeletePackage = async ( id: string ) : Promise<any> => {
-    return Package.deleteMany({ _id: id })
-}
-
+/*
 export default {
     getPackages,
     getPackage,
@@ -35,5 +41,5 @@ export default {
     deletePackage,
     bulkdeletePackage
 }
-
+*/
 

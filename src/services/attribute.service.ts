@@ -1,30 +1,35 @@
 import Attribute from '../models/attribute'
 
-const getAttributes = async () : Promise<any> => {
-    return Attribute.find()
+class AttributeService {
+
+    public getAttributes = async () : Promise<any> => {
+        return Attribute.find()
+    }
+
+    public getAttribute = async ( id: string ) : Promise<any> => {
+        return Attribute.findById(id)
+    }
+
+    public createAttribute = async ( input: any ) : Promise<any> => {
+        let attribute = new Attribute({ ...input});
+        let result = attribute.save();
+        
+        return result
+    }
+
+    public updateAttribute = async (id: string, post: any): Promise<any> => {
+        return Attribute.findOneAndUpdate( { _id: id }, post, { new: true } )
+    }
+
+    public deleteAttribute = async ( id: string ) : Promise<any> => {
+        return Attribute.findOneAndDelete( { _id: id } )
+    }
+
+    public bulkdeleteAttribute = async ( id: string ) : Promise<any> => {
+        return Attribute.deleteMany({ _id: id })
+    }
 }
 
-const getAttribute = async ( id: string ) : Promise<any> => {
-    return Attribute.findById(id)
-}
+export default new AttributeService()
 
-const createAttribute = async ( input: any ) : Promise<any> => {
-    let attribute = new Attribute({ ...input});
-    let result = attribute.save();
-    
-    return result
-}
-
-const updateAttribute = async (id: string, post: any): Promise<any> => {
-    return Attribute.findOneAndUpdate( { _id: id }, post, { new: true } )
-}
-
-const deleteAttribute = async ( id: string ) : Promise<any> => {
-    return Attribute.findOneAndDelete( { _id: id } )
-}
-
-const bulkdeleteAttribute = async ( id: string ) : Promise<any> => {
-    return Attribute.deleteMany({ _id: id })
-}
-
-export default { getAttributes, getAttribute, createAttribute, updateAttribute, deleteAttribute, bulkdeleteAttribute }
+// export default { getAttributes, getAttribute, createAttribute, updateAttribute, deleteAttribute, bulkdeleteAttribute }

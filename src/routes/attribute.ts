@@ -1,5 +1,7 @@
 import express from 'express';
 import AttributeController  from '../controller/attribute'
+
+
 const router  = express.Router();
 
 router.get( '/', AttributeController.getAttributes);
