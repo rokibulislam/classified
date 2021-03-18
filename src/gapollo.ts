@@ -27,6 +27,7 @@ interface IContextObject {
  const apolloServer =  new ApolloServer({
     schema,
     context: async ( { req, connection } ) => {
+        console.log( req );
         const contextObj: IContextObject = {};
         if (req) {
           await verifyUser(req)
@@ -36,10 +37,10 @@ interface IContextObject {
         }
 
         contextObj.loaders = {
-            user: new dataloader( ( keys: any )  => UserService.getbatchUsers( keys ) ),
-            brand: new dataloader(( keys: any )  => BrandService.getbatchBrands( keys ) ),
-            tag: new dataloader(( keys: any )    => Tagservice.getbatchTags( keys ) ),
-            category: new dataloader( ( keys: any )  => CategoryService.getbatchCategories( keys ) ),
+            // user: new dataloader( ( keys: any )  => UserService.getbatchUsers( keys ) ),
+            // brand: new dataloader(( keys: any )  => BrandService.getbatchBrands( keys ) ),
+            // tag: new dataloader(( keys: any )    => Tagservice.getbatchTags( keys ) ),
+            // category: new dataloader( ( keys: any )  => CategoryService.getbatchCategories( keys ) ),
         };
 
         return contextObj;

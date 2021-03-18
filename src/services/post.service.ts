@@ -1,4 +1,5 @@
-const Post = require ('../models/post')
+// const Post = require ('../models/post')
+import Post from '../models/post'
 import PubSub from '../subscription'
 import Events  from '../subscription/events'
 const { stringToBase64, base64ToString  } = require('../helper/index')
