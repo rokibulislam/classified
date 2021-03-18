@@ -7,26 +7,14 @@ interface IPackage extends Document {
     allowedpost: string
 }
 
-const packageSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-
-    amount: {
-        type: String,
-        required: true
-    },
-
-    duration: {
-        type: String,
-        required: true
-    },
-
-   	allowedpost: {
-        type: String,
-        required: true
-    }
-})
+const packageSchema = new Schema(
+    {
+        name: { type: String, required: true },
+        amount: { type: String, required: true },
+        duration: { type: String, required: true },
+        allowedpost: { type: String, required: true }
+    }, {
+        timestamps: true,
+    })
 
 export default model<IPackage>( 'Package', packageSchema )

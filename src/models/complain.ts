@@ -5,10 +5,9 @@ interface IComplain extends Document {
 }
 
 const complaineSchema = new Schema({
-    description: {
-        type: String,
-        required: true
-    }
+    description: { type: String, required: true }
+}, {
+    timestamps: true
 })
 
 export default model<IComplain>( 'Complain', complaineSchema )

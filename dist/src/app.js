@@ -5,9 +5,6 @@ const express_1 = tslib_1.__importDefault(require("express"));
 const body_parser_1 = tslib_1.__importDefault(require("body-parser"));
 const dotenv_1 = tslib_1.__importDefault(require("dotenv"));
 const cors = require('cors');
-const Dataloader = require('dataloader');
-const elasticsearch = require('elasticsearch');
-const redis = require('redis');
 const app = express_1.default();
 const { logger } = require('./helper/logger');
 var options = {
@@ -43,10 +40,10 @@ app.use(express_1.default.json());
 app.use(body_parser_1.default.json({ type: 'application/*+json' }));
 const { connection } = require('./database/connection');
 connection();
-const esclient = new elasticsearch.Client({
-    host: process.env.ELASTIC_URL,
-    log: 'trace',
-    apiVersion: '7.2'
+const gapollo_1 = tslib_1.__importDefault(require("./gapollo"));
+gapollo_1.default.applyMiddleware({
+    app,
+    path: '/graphql'
 });
 const PORT = process.env.PORT || 3002;
 app.use('/', (req, res, next) => {
@@ -56,3 +53,4 @@ const httpServer = app.listen(PORT, () => {
     console.log(`Server listening on PORT: ${PORT}`);
     console.log(`Graphql Endpoint: ${PORT}`);
 });
+gapollo_1.default.installSubscriptionHandlers(httpServer);

@@ -16,7 +16,6 @@ const orderSchema = new Schema({
             ref: 'User'
         }
     },
-
     {
         timestamps: true,
     }

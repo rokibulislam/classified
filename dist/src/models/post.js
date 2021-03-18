@@ -1,12 +1,12 @@
 "use strict";
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-const Reviews = mongoose.Schema({
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const Reviews = new mongoose_1.Schema({
     name: { type: String, required: true },
     rating: { type: Number, required: true },
     comment: { type: Number, required: true },
 });
-const postSchema = new Schema({
+const postSchema = new mongoose_1.Schema({
     title: {
         type: String,
         required: true
@@ -28,22 +28,22 @@ const postSchema = new Schema({
     },
     reviews: [Reviews],
     user: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose_1.Types.ObjectId,
         ref: 'User'
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose_1.Types.ObjectId,
         ref: 'Category'
     },
     tag: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose_1.Types.ObjectId,
         ref: 'Tag'
     },
     brand: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose_1.Types.ObjectId,
         ref: 'Brand'
     }
 }, {
     timestamps: true
 });
-module.exports = mongoose.model('Post', postSchema);
+exports.default = mongoose_1.model('Post', postSchema);

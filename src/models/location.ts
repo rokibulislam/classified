@@ -5,10 +5,9 @@ interface ILocation extends Document {
 }
 
 const locationSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    }
+    name: { type: String, required: true }
+}, {
+    timestamps: true
 })
 
 export default model<ILocation>( 'Location', locationSchema )

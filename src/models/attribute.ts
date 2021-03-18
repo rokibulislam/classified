@@ -5,10 +5,9 @@ interface IAttribute extends Document {
 }
 
 const attributeSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    }
+    name: { type: String, required: true}
+}, {
+    timestamps: true
 })
 
 export default model<IAttribute>('Attribute', attributeSchema);

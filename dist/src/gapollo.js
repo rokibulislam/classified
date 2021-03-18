@@ -21,8 +21,6 @@ const apolloServer = new apollo_server_express_1.ApolloServer({
         const contextObj = {};
         if (req) {
             yield context_1.verifyUser(req);
-            contextObj.email = req.email;
-            contextObj.loggedInUserId = req.loggedInUserId;
             contextObj.esClient = esclient;
         }
         contextObj.loaders = {
@@ -39,3 +37,4 @@ const apolloServer = new apollo_server_express_1.ApolloServer({
         };
     }
 });
+exports.default = apolloServer;
