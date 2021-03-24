@@ -10,8 +10,8 @@ class UserController {
 
     public getUsers = async ( req: Request, res: Response ) : Promise<any> => {
         try {
-            // let users = await this.service.getUsers()
-            return res.send()
+            let users = await this.service.getUsers()
+            return res.json(users)
         } catch( error ) {
 
         }
@@ -24,7 +24,7 @@ class UserController {
             if ( !user )
                 return res.status(404).send("The user with the given ID was not found.");
         
-            return res.send( user )
+            return res.json( user )
         } catch( error ) {
             
         }

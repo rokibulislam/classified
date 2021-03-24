@@ -12,7 +12,7 @@ class MessageController {
         try {
             let messages = await this.service.getMessages()
 
-            return res.send({
+            return res.json({
                 'data': messages
             })
 
@@ -25,7 +25,7 @@ class MessageController {
         try {
             let message = await this.service.getMessage(req.params.id)
             
-            return res.send(message)
+            return res.json(message)
         } catch( error ) {
 
         }
@@ -35,7 +35,7 @@ class MessageController {
         try {
             let message = await this.service.createMessage(req.body)
             
-            return res.send(message)
+            return res.json(message)
         } catch( error ) {
 
         }
@@ -46,7 +46,7 @@ class MessageController {
             let id = req.params.id
             let message = await this.service.updateMessage(id, req.body)
 
-            return res.send(message)
+            return res.json(message)
         } catch( error ) {
 
         }
@@ -59,7 +59,7 @@ class MessageController {
             if ( !message )
                 return res.status(404).send("The message with the given ID was not found.");
 
-            return res.send(message)
+            return res.json(message)
         } catch( error ) {
             
         }

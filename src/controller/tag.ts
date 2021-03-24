@@ -12,7 +12,7 @@ class TagController {
         try {
             let tags = await this.service.getTags()
         
-            return res.send({
+            return res.json({
                 'data': tags
             })
         } catch( error ) {
@@ -24,7 +24,7 @@ class TagController {
         try {
             let tag = await this.service.getTag(req.params.id)
             
-            return res.send(tag)
+            return res.json(tag)
         } catch( error ) {
 
         }
@@ -33,7 +33,7 @@ class TagController {
     public createTag = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let tag = await this.service.createTag(req.body)
-            return res.send(tag)
+            return res.json(tag)
         } catch( error ) {
             
         }
@@ -42,7 +42,7 @@ class TagController {
     public updateTag = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let tag = await this.service.updateTag(req.params.id,req.body)
-            return res.send(tag)
+            return res.json(tag)
         } catch( error ) {
 
         }
@@ -55,7 +55,7 @@ class TagController {
             if ( !tag )
                 return res.status(404).send("The tag with the given ID was not found.");
         
-            res.send(tag)
+            res.json(tag)
         } catch( error ) {
             
         }

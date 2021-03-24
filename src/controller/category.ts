@@ -11,7 +11,7 @@ class CategoryController {
     public getCategories = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let categories = await this.service.getCategories()
-            return res.send({
+            return res.json({
                 'data': categories
             })
         } catch(error) {
@@ -22,7 +22,7 @@ class CategoryController {
     public getCategory = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let category = await this.service.getCategory(req.params.id);
-            return res.send(category)
+            return res.json(category)
         } catch(error) {
 
         }
@@ -31,7 +31,7 @@ class CategoryController {
     public createCategory = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let category = await this.service.createCategory(req.body)
-            return res.send(category)
+            return res.json(category)
         } catch( error ) {
 
         }
@@ -41,7 +41,7 @@ class CategoryController {
         try {
             let id = req.params.id;
             let category = await this.service.updateCategory( id,req.body )
-            return res.send(category)
+            return res.json(category)
         } catch(error) {
 
         }
@@ -52,7 +52,7 @@ class CategoryController {
             let category = await this.service.deleteCategory(req.params.id)
             if ( !category )
                 return res.status(404).send("The category with the given ID was not found.");
-            return res.send(category)
+            return res.json(category)
         } catch(error) {
             
         }

@@ -12,7 +12,7 @@ class CouponController {
         try { 
             let coupons = await this.service.getCoupons()
     
-            return res.send({
+            return res.json({
                 'data': coupons
             })
         } catch( error ) {
@@ -23,7 +23,7 @@ class CouponController {
     public getCoupon = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let coupon = await this.service.getCoupon(req.params.id)
-            return res.send(coupon)
+            return res.json(coupon)
         } catch( error ) {
 
         }
@@ -32,7 +32,7 @@ class CouponController {
     public createCoupon = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let coupon = await this.service.createCoupon(req.body)
-            return res.send(coupon)
+            return res.json(coupon)
         } catch( error ) {
 
         }
@@ -43,7 +43,7 @@ class CouponController {
             let id = req.params.id
             let coupon = await this.service.updateCoupon(id,req.body)
             
-            return res.send(coupon)
+            return res.json(coupon)
         } catch( error ) {
 
         }
@@ -56,7 +56,7 @@ class CouponController {
             if ( !coupon )
                 return res.status(404).send("The coupon with the given ID was not found.");
         
-            return res.send(coupon)
+            return res.json(coupon)
         } catch( error ) {
             
         }

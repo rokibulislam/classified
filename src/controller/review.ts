@@ -12,7 +12,7 @@ class ReviewController {
         try {
             let reviews = await this.service.getReviews()
     
-            return res.send( {
+            return res.json( {
                 'data': reviews
             })
         } catch( error ) {
@@ -23,7 +23,7 @@ class ReviewController {
     public getReview = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let review = await this.service.getReview(req.params.id)
-            return res.send(review)
+            return res.json(review)
         } catch( error ) {
 
         }
@@ -32,7 +32,7 @@ class ReviewController {
     public createReview = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let review = await this.service.createReview(req.body)
-            return res.send(review)
+            return res.json(review)
         } catch( error ) {
 
         }
@@ -41,7 +41,7 @@ class ReviewController {
     public updateReview = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let review = await this.service.updateReview(req.params.id,req.body)
-            return res.send(review)
+            return res.json(review)
         } catch( error ) {
 
         }
@@ -54,7 +54,7 @@ class ReviewController {
             if ( !review )
                 return res.status(404).send("The review with the given ID was not found.");
         
-            res.send(review)
+            res.json(review)
         } catch( error ) {
             
         }

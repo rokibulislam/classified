@@ -11,7 +11,7 @@ class PackageController {
     public getPackages = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let packages = await this.service.getPackages()
-            return res.send( packages )
+            return res.json( packages )
         } catch( error ) {
 
         }
@@ -21,7 +21,7 @@ class PackageController {
         try {
             let packag = await this.service.getPackage(req.params.id)
             
-            return res.send( packag )
+            return res.json( packag )
         } catch( error ) {
 
         }
@@ -30,7 +30,7 @@ class PackageController {
     public createPackage = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let packag = await this.service.createPackage(req.body)
-            res.send(packag)
+            res.json(packag)
         } catch( error ) {
 
         }
@@ -41,7 +41,7 @@ class PackageController {
             let id = req.params.id
             let packag = await this.service.updatePackage(req.params.id,req.body)
     
-            res.send(packag)
+            res.json(packag)
         } catch( error ) {
 
         }
@@ -52,7 +52,7 @@ class PackageController {
             let packag =  await this.service.deletePackage(req.params.id)
     
             if ( !packag )
-                return res.status(404).send("The package with the given ID was not found.");
+                return res.status(404).json("The package with the given ID was not found.");
         
             res.send(packag)
         } catch( error ) {

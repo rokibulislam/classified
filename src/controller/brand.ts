@@ -12,7 +12,7 @@ class BrandController {
         
         try {
             let brands = await this.service.getBrands();
-            return res.send({
+            return res.json({
                 'data': brands
             })
         } catch(error) {
@@ -23,7 +23,7 @@ class BrandController {
     public getBrand = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let brand = await this.service.getBrand(req.params.id)
-            return res.send(brand)
+            return res.json(brand)
         } catch(error) {
 
         }
@@ -32,7 +32,7 @@ class BrandController {
     public createBrand = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let brand = await this.service.createBrand(req.body)
-            return res.send(brand)
+            return res.json(brand)
         } catch(error) {
 
         }
@@ -42,7 +42,7 @@ class BrandController {
         try {
             let id = req.params.id
             let brand = await this.service.updateBrand(id,req.body)
-            return res.send(brand)
+            return res.json(brand)
         } catch(error) {
 
         }
@@ -53,7 +53,7 @@ class BrandController {
             let brand = await this.service.deleteBrand(req.params.id)
             if ( !brand )
                 return res.status(404).send("The brand with the given ID was not found.");
-            return res.send(brand)
+            return res.json(brand)
         } catch(error) { 
 
         }

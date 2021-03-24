@@ -12,12 +12,12 @@ class AuthController {
         try {
             let result = await this.service.login(req.body)
             
-            return res.send({
+            return res.json({
                 'data': result
             })
 
         } catch( error ) { 
-            res.send({
+            res.json({
                 error: error
             })
         }
@@ -27,11 +27,11 @@ class AuthController {
         try {
             let result = await this.service.signup(req.body)
             
-            return res.send({
+            return res.json({
                 'data': result
             })
         } catch( error ) { 
-            res.send({
+            res.json({
                 error: error
             })
         }

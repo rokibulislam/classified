@@ -11,7 +11,7 @@ class PostController {
     public getPosts = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let posts = await this.service.getPosts();
-            return res.send({
+            return res.json({
                 'data': posts
             })
         } catch( error ) {
@@ -22,7 +22,7 @@ class PostController {
     public getPost = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let post = await this.service.getPost(req.params.id);
-            return res.send(post)
+            return res.json(post)
         } catch( error ) {
 
         }
@@ -54,7 +54,7 @@ class PostController {
             if ( !post )
                 return res.status(404).send("The post with the given ID was not found.");
 
-            return res.send(post)
+            return res.json(post)
         } catch( error ) {
 
         }

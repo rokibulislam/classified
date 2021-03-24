@@ -12,7 +12,7 @@ class ComplainController {
         try {
             let complains = await this.service.getComplains()
     
-            return res.send({
+            return res.json({
                 'data': complains
             });
 
@@ -25,7 +25,7 @@ class ComplainController {
         try {
             let complain = await this.service.getComplain(req.params.id)
     
-            return res.send(complain)
+            return res.json(complain)
         } catch(error) {
 
         }
@@ -34,7 +34,7 @@ class ComplainController {
     public createComplain = async ( req: Request, res: Response ) : Promise<any> => {
         try {
             let complain = await this.service.createComplain(req.body)
-            return res.send(complain)
+            return res.json(complain)
         } catch(error) {
 
         }
@@ -45,7 +45,7 @@ class ComplainController {
             let id = req.params.id
             let complain = await this.service.updateComplain(id,req.body)
             
-            return res.send(complain)
+            return res.json(complain)
         } catch(error) {
 
         }
@@ -58,7 +58,7 @@ class ComplainController {
             if ( !complain )
                 return res.status(404).send("The complain with the given ID was not found.");
         
-            return res.send(complain)
+            return res.json(complain)
         } catch(error) {
 
         }
