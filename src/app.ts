@@ -10,6 +10,19 @@ var options = {
   explorer: true
 };
 
+//set env variables
+dotEnv.config();
+// cors
+app.use(cors())
+app.use(express.json())
+// app.use(bodyParser.json({ type: 'application/*+json' }))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
+const { connection } = require('./database/connection');
+//db connectivity
+connection();
+
 // routes 
 import attributeRoutes from './routes/attribute'
 import authRoutes from './routes/auth'
@@ -37,16 +50,6 @@ app.use('/api/review', reviewRoutes)
 app.use('/api/tag', tagRoutes)
 app.use('/api/user', userRoutes)
 
-//set env variables
-dotEnv.config();
-// cors
-app.use(cors())
-app.use(express.json())
-app.use(bodyParser.json({ type: 'application/*+json' }))
-
-const { connection } = require('./database/connection');
-//db connectivity
-connection();
 
 import apolloServer from './gapollo'
 
@@ -57,8 +60,13 @@ apolloServer.applyMiddleware({
 
 const PORT = process.env.PORT || 3002
 
-app.use( '/', (req,res,next) => {
+app.get( '/', (req,res,next) => {
     res.send({ message: 'Hello' });
+})
+
+
+app.post('/', (req, res) => {
+	res.send('Hello World!');
 })
 
 const httpServer = app.listen(PORT, () => {

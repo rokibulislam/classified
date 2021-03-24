@@ -9,39 +9,53 @@ class CategoryController {
     }
 
     public getCategories = async ( req: Request, res: Response ) : Promise<any> => {
-        let categories = await this.service.getCategories()
-    
-        return res.send({
-            'data': categories
-        })
+        try {
+            let categories = await this.service.getCategories()
+            return res.send({
+                'data': categories
+            })
+        } catch(error) {
+
+        }
     }
 
     public getCategory = async ( req: Request, res: Response ) : Promise<any> => {
-        let category = await this.service.getCategory(req.params.id);
-    
-        return res.send(category)
+        try {
+            let category = await this.service.getCategory(req.params.id);
+            return res.send(category)
+        } catch(error) {
+
+        }
     }
 
     public createCategory = async ( req: Request, res: Response ) : Promise<any> => {
-        let category = await this.service.createCategory(req.body)
+        try {
+            let category = await this.service.createCategory(req.body)
+            return res.send(category)
+        } catch(error) {
 
-        return res.send(category)
+        }
     }
 
     public updateCategory = async ( req: Request, res: Response ) : Promise<any> => {
-        let id = req.params.id;
-        let category = await this.service.updateCategory( id,req.body )
+        try {
+            let id = req.params.id;
+            let category = await this.service.updateCategory( id,req.body )
+            return res.send(category)
+        } catch(error) {
 
-        return res.send(category)
+        }
     }
 
     public deleteCategory = async ( req: Request, res: Response ) : Promise<any> => {
-        let category = await this.service.deleteCategory(req.params.id)
-
-        if ( !category )
-            return res.status(404).send("The category with the given ID was not found.");
-
-        return res.send(category)
+        try {
+            let category = await this.service.deleteCategory(req.params.id)
+            if ( !category )
+                return res.status(404).send("The category with the given ID was not found.");
+            return res.send(category)
+        } catch(error) {
+            
+        }
     }
 }
 

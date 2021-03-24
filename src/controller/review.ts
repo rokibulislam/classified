@@ -9,38 +9,55 @@ class ReviewController {
     }
 
     public getReviews = async ( req: Request, res: Response ) : Promise<any> => {
-        let reviews = await this.service.getReviews()
+        try {
+            let reviews = await this.service.getReviews()
     
-        return res.send( {
-            'data': reviews
-        })
+            return res.send( {
+                'data': reviews
+            })
+        } catch( error ) {
+
+        }
     }
     
     public getReview = async ( req: Request, res: Response ) : Promise<any> => {
-        let review = await this.service.getReview(req.params.id)
-    
-        return res.send(review)
+        try {
+            let review = await this.service.getReview(req.params.id)
+            return res.send(review)
+        } catch( error ) {
+
+        }
     }
     
     public createReview = async ( req: Request, res: Response ) : Promise<any> => {
-        let review = await this.service.createReview(req.body)
-    
-        return res.send(review)
+        try {
+            let review = await this.service.createReview(req.body)
+            return res.send(review)
+        } catch( error ) {
+
+        }
     }
     
     public updateReview = async ( req: Request, res: Response ) : Promise<any> => {
-        let review = await this.service.updateReview(req.params.id,req.body)
-        
-        return res.send(review)
+        try {
+            let review = await this.service.updateReview(req.params.id,req.body)
+            return res.send(review)
+        } catch( error ) {
+
+        }
     }
     
     public deleteReview = async ( req: Request, res: Response ) : Promise<any> => {
-        let review = await this.service.deleteReview(req.params.id)
+        try {
+            let review = await this.service.deleteReview(req.params.id)
     
-        if ( !review )
-            return res.status(404).send("The review with the given ID was not found.");
-    
-        res.send(review)
+            if ( !review )
+                return res.status(404).send("The review with the given ID was not found.");
+        
+            res.send(review)
+        } catch( error ) {
+            
+        }
     }
 }
 

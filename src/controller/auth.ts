@@ -9,11 +9,23 @@ class AuthController {
     }
 
     public login = async ( req: Request, res: Response ) : Promise<any> => {
-        return await this.service.login(req.body)
+        try {
+            return await this.service.login(req.body)
+        } catch( error ) { 
+            res.send({
+                error: error
+            })
+        }
     }
     
     public signup = async ( req: Request, res: Response ) : Promise<any> => {
-        return await this.service.signup(req.body)
+        try {
+            return await this.service.signup(req.body)
+        } catch( error ) { 
+            res.send({
+                error: error
+            })
+        }
     }
 }
 

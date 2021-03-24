@@ -9,17 +9,25 @@ class UserController {
     }
 
     public getUsers = async ( req: Request, res: Response ) : Promise<any> => {
-        // let users = await this.service.getUsers()
-        return res.send()
+        try {
+            // let users = await this.service.getUsers()
+            return res.send()
+        } catch( error ) {
+
+        }
     }
     
     public getUser = async ( req: Request, res: Response ) : Promise<any> => {
-        let user = await this.service.getUser(req.params.id)
+        try {
+            let user = await this.service.getUser(req.params.id)
     
-        if ( !user )
-            return res.status(404).send("The user with the given ID was not found.");
-    
-        return res.send( user )
+            if ( !user )
+                return res.status(404).send("The user with the given ID was not found.");
+        
+            return res.send( user )
+        } catch( error ) {
+            
+        }
     }
 }
 
