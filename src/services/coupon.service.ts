@@ -1,47 +1,65 @@
 import Coupon from '../models/coupon'
 
-class CouponController {
+class CouponService {
 
     public getCoupons = async () : Promise<any> => {
-        return Coupon.find()
+        try {
+            let coupon = await Coupon.find()
+            return coupon
+        } catch( error ) {
+
+        }
     }
 
     public getCoupon = async ( id: string ) : Promise<any> => {
-        return Coupon.findById(id)
+        try {
+            let coupon = await Coupon.findById(id)
+            return coupon
+        } catch( error ) {
+
+        }
     }
 
     public createCoupon = async ( input: any ) : Promise<any> => {
-        let coupon = new Coupon({ ...input});
-        let result = coupon.save();
+        try {
+            let coupon = new Coupon({ ...input});
+            let result = coupon.save();
         
-        return result
+            return result
+        } catch( error ) {
+
+        }
     }
 
     public updateCoupon = async (id: string, post: any): Promise<any> => {
-        return Coupon.findOneAndUpdate( { _id: id }, post, { new: true } )
+        try {
+            let coupon = await Coupon.findOneAndUpdate( { _id: id }, post, { new: true } )
+            return coupon
+        } catch( error ) {
+
+        }
     }
 
     public deleteCoupon = async ( id: string ) : Promise<any> => {
-        return Coupon.findOneAndDelete( { _id: id } )
+        try {
+            let coupon = await Coupon.findOneAndDelete( { _id: id } )
+            return coupon
+        } catch( error ) {
+
+        }
     }
 
     public bulkdeleteCoupon = async ( id: string ) : Promise<any> => {
-        return Coupon.deleteMany({ _id: id })
+        try {
+            let coupon = await Coupon.deleteMany({ _id: id })
+            return coupon
+        } catch( error ) {
+
+        }
     }
 }
 
-export default new CouponController()
-
-/*
-export default  {
-    getCoupons,
-    getCoupon,
-    createCoupon,
-    updateCoupon,
-    deleteCoupon,
-    bulkdeleteCoupon
-}
-*/
+export default new CouponService()
 
 
 

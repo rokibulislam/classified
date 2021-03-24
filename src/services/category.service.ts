@@ -3,51 +3,71 @@ import Category from '../models/category'
 class CategoryService {
 
     public getCategories = async () : Promise<any> => {
-        return Category.find()
+        try {
+            let categories = await Category.find()
+            return categories
+        } catch(error) {
+
+        }
     }
     
     public getCategory = async ( id: string ) : Promise<any> => {
-        const category = await Category.findById(id)
-        return category;
+        try {
+            let category = await Category.findById(id)
+            return category;
+        } catch( error ) {
+
+        }
     }
     
     public createCategory = async ( input: any ) : Promise<any> => {
-        let category = new Category({ ...input});
-        let result = category.save();
+        try {
+            let category = new Category({ ...input});
+            let result = category.save();
         
-        return result
+            return result
+        } catch( error ) {
+
+        }
     }
     
     public updateCategory = async (id: string, post: any): Promise<any> => {
-        return Category.findOneAndUpdate( { _id: id }, post, { new: true } )
+        try {
+            let category = await Category.findOneAndUpdate( { _id: id }, post, { new: true } )
+            return category
+        } catch( error ) {
+
+        }
     }
     
     public deleteCategory = async ( id: string ) : Promise<any> => {
-        return Category.findOneAndDelete( { _id: id } )
+        try {
+            let category = await Category.findOneAndDelete( { _id: id } )
+            return category
+        } catch(error) {
+
+        } 
     }
     
-    public getbatchCategories = async ( categoryIds : any) : Promise<any>=> {
-        // console.log('keys====', userIds);
-        const categories = await Category.find({ _id: { $in: categoryIds } });
-        return categories;
-        // return userIds.map(userId => users.find(user => user.id === userId));
+    public getbatchCategories = async ( categoryIds : any) : Promise<any>=> { 
+        try {
+            // console.log('keys====', userIds);
+            const categories = await Category.find({ _id: { $in: categoryIds } });
+            return categories;
+            // return userIds.map(userId => users.find(user => user.id === userId));
+        } catch( error ) {
+
+        }
     }
     
     public bulkdeleteCategory = async ( id: string ) : Promise<any> => {
-        return Category.deleteMany({ _id: id })
+        try {
+             let category = await Category.deleteMany({ _id: id })
+             return category
+        } catch( error ) {
+
+        }
     }
 }
 
 export default new CategoryService()
-
-/*
-export default {
-    getCategories,
-    getCategory,
-    createCategory,
-    updateCategory,
-    deleteCategory,
-    getbatchCategories,
-    bulkdeleteCategory
-}
-*/

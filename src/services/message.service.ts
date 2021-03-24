@@ -1,39 +1,54 @@
 import Message from '../models/message'
 
-class MessageController {
+class MessageService {
 
     public getMessages = async () => {
-        return Message.find()
+        try {
+          let message = await Message.find()
+          return message
+        } catch( error ) {
+
+        }
     }
 
     public getMessage = async ( id: string) => {
-        return Message.findById(id)
+        try {
+            let message = await Message.findById(id)
+            return message
+        } catch( error ) {
+
+        }
     }
 
     public createMessage= async ( input: any ) : Promise<any> => {
-        let message = new Message({ ...input});
-        let result = message.save();
+        try {
+            let message = new Message({ ...input});
+            let result = message.save();
         
-        return result
+            return result
+        } catch( error ) {
+
+        }
     }
 
     public updateMessage = async (id: string, post: any): Promise<any> => {
-        return Message.findOneAndUpdate( { _id: id }, post, { new: true } )
+        try {
+            let message =  await Message.findOneAndUpdate( { _id: id }, post, { new: true } )
+            return message
+        } catch( error ) {
+
+        }
+        
     }
 
     public deleteMessage = async ( id: string ) : Promise<any> => {
-        return Message.findOneAndDelete( { _id: id } )
+        try {
+            let message =  await Message.findOneAndDelete( { _id: id } )
+            return message
+        } catch( error ) {
+
+        }
     }
 }
 
-export default new MessageController()
-
-/*
-export default {
-    getMessages,
-    getMessage,
-    createMessage,
-    updateMessage,
-    deleteMessage,
-}
-*/
+export default new MessageService()

@@ -10,7 +10,12 @@ class AuthController {
 
     public login = async ( req: Request, res: Response ) : Promise<any> => {
         try {
-            return await this.service.login(req.body)
+            let result = await this.service.login(req.body)
+            
+            return res.send({
+                'data': result
+            })
+
         } catch( error ) { 
             res.send({
                 error: error
@@ -20,7 +25,11 @@ class AuthController {
     
     public signup = async ( req: Request, res: Response ) : Promise<any> => {
         try {
-            return await this.service.signup(req.body)
+            let result = await this.service.signup(req.body)
+            
+            return res.send({
+                'data': result
+            })
         } catch( error ) { 
             res.send({
                 error: error

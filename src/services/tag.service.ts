@@ -3,50 +3,71 @@ import Tag from '../models/tag'
 class TagService {
 
     public getTags = async () => {
-        return Tag.find()
+        try {
+            let tags =  await Tag.find()
+            return tags
+        } catch( error ) {
+
+        }
     }
 
     public getTag = async ( id: string ) : Promise<any> => {
-        return Tag.findById(id)
+        try {
+            let tag =  await Tag.findById(id)
+            return tag
+        } catch( error ) {
+
+        }
     }
 
     public createTag = async ( input: any ) : Promise<any> => {
-        let tag = new Tag({ ...input});
-        let result = tag.save();
+        try {
+            let tag = new Tag({ ...input});
+            let result = tag.save();
         
-        return result
+            return result
+        } catch( error ) {
+
+        }
     }
 
-    public updateTag = async (id: string, post: any): Promise<any> => {
-        return Tag.findOneAndUpdate( { _id: id }, post, { new: true } )
+    public updateTag = async (id: string, post: any): Promise<any> => { 
+        try {
+            let tag = await Tag.findOneAndUpdate( { _id: id }, post, { new: true } )
+            return tag
+        } catch( error ) {
+
+        }
     }
 
     public deleteTag = async ( id: string ) : Promise<any> => {
-        return Tag.findOneAndDelete( { _id: id } )
+        try {
+            let tag = await Tag.findOneAndDelete( { _id: id } )
+            return tag
+        } catch( error ) {
+
+        }
     }
 
     public getbatchTags = async ( tagIds : any) : Promise<any> => {
-        // console.log('keys====', userIds);
-        const tags = await Tag.find({ _id: { $in: tagIds } });
-        return tags;
-        // return userIds.map(userId => users.find(user => user.id === userId));
+        try {
+            // console.log('keys====', userIds);
+            const tags = await Tag.find({ _id: { $in: tagIds } });
+            return tags;
+            // return userIds.map(userId => users.find(user => user.id === userId));
+        } catch( error ) {
+
+        }
     }
 
     public bulkdeleteTag = async ( id: string ) => {
-        return await Tag.deleteMany({ _id: id })
+        try {
+            let tag = await Tag.deleteMany({ _id: id })
+            return tag
+        } catch( error ) {
+
+        }
     }
 }
 
 export default new TagService()
-
-/*
-export default {
-    getTags,
-    getTag,
-    createTag,
-    updateTag,
-    deleteTag,
-    getbatchTags,
-    bulkdeleteTag
-}
-*/

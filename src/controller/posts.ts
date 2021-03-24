@@ -10,8 +10,10 @@ class PostController {
     
     public getPosts = async ( req: Request, res: Response ) : Promise<any> => {
         try {
-            // let posts = await this.service.getPosts();
-            return res.send()
+            let posts = await this.service.getPosts();
+            return res.send({
+                'data': posts
+            })
         } catch( error ) {
 
         }

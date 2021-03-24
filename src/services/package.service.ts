@@ -3,43 +3,60 @@ import Package from '../models/package'
 class PackageService {
 
     public getPackages = async () : Promise<any> => {
-        return Package.find()
+        try {
+            let packages = await Package.find()
+            return packages
+        } catch( error ) {
+
+        }
     }
 
     public getPackage = async ( id: string ) : Promise<any> => {
-        return Package.findById(id)
+        try {
+            let packag = await Package.findById(id)
+            return packag
+        } catch( error ) {
+
+        }
     }
 
     public createPackage = async ( input: any ) : Promise<any> => {
-        let pack = new Package({ ...input});
-        let result = pack.save();
+        try {
+            let pack = new Package({ ...input});
+            let result = pack.save();
         
-        return result
+            return result
+        } catch( error ) {
+
+        }
     }
 
     public updatePackage = async (id: string, post: any): Promise<any> => {
-        return Package.findOneAndUpdate( { _id: id }, post, { new: true } )
+        try {
+             let packag =  await Package.findOneAndUpdate( { _id: id }, post, { new: true } )
+             return packag
+        } catch( error ) {
+
+        }
     }
 
     public deletePackage = async ( id: string ) : Promise<any> => {
-        return Package.findOneAndDelete( { _id: id } )
+        try {
+            let packag =  await Package.findOneAndDelete( { _id: id } )
+            return packag
+        } catch( error ) {
+
+        }
     }
 
     public bulkdeletePackage = async ( id: string ) : Promise<any> => {
-        return Package.deleteMany({ _id: id })
+        try {
+            let packag =  await Package.deleteMany({ _id: id })
+            return packag
+        } catch( error ) {
+
+        }
     }
 }
 
 export default new PackageService()
-
-/*
-export default {
-    getPackages,
-    getPackage,
-    createPackage,
-    updatePackage,
-    deletePackage,
-    bulkdeletePackage
-}
-*/
-

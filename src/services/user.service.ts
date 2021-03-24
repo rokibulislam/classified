@@ -37,23 +37,24 @@ class UserService {
     }
 
     public getUser = async ( id: string ) : Promise<any> => {
-        return User.findById(id)
+        try {
+            let user = await User.findById(id)
+            return user
+        } catch( error ) {
+
+        }
     }
 
     public getbatchUsers = async (userIds: any) : Promise<any> => {
-        // console.log('keys====', userIds);
-        const users = await User.find({ _id: { $in: userIds } });
-        return users;
-        // return userIds.map(userId => users.find(user => user.id === userId));
+        try {
+            // console.log('keys====', userIds);
+            const users = await User.find({ _id: { $in: userIds } });
+            return users;
+            // return userIds.map(userId => users.find(user => user.id === userId));
+        } catch( error ) {
+
+        }
     }
 }
 
 export default new UserService()
-
-/*
-export default {
-    getUsers,
-    getUser,
-    getbatchUsers
-}
-*/

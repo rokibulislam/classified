@@ -3,26 +3,50 @@ import Complain  from '../models/complain'
 class ComplainService {
 
     public getComplains = async () : Promise<any> => {
-        return Complain.find()
+        try {
+            let complains = await Complain.find()
+            return complains
+        } catch( error ) {
+
+        }
     }
     
     public getComplain = async ( id: string ) : Promise<any> => {
-        return Complain.findById(id)
+        try {
+            let complain = await Complain.findById(id)
+            return complain
+        } catch( error ) {
+
+        }
     }
     
     public createComplain = async ( input: any ) : Promise<any> => {
-        let complain = new Complain({ ...input});
-        let result = complain.save();
-        
-        return result
+        try {
+            let complain = new Complain({ ...input});
+            let result = complain.save();
+            
+            return result
+        } catch( error ) {
+
+        }
     }
     
     public updateComplain = async (id: string, post: any): Promise<any> => {
-        return Complain.findOneAndUpdate( { _id: id }, post, { new: true } )
+        try {
+            let complain = await Complain.findOneAndUpdate( { _id: id }, post, { new: true } )
+            return complain
+        } catch( error ) {
+
+        }
     }
     
     public deleteComplain = async ( id: string ) : Promise<any> => {
-        return Complain.findOneAndDelete( { _id: id } )
+        try {
+            let complain = await Complain.findOneAndDelete( { _id: id } )
+            return complain
+        } catch( error ) {
+
+        }
     }
     
     public bulkdeleteComplain = async ( id: string ) : Promise<any> => {
@@ -31,14 +55,3 @@ class ComplainService {
 }
 
 export default new ComplainService()
-
-/*
-export default {
-    getComplains,
-    getComplain,
-    createComplain,
-    updateComplain,
-    deleteComplain,
-    bulkdeleteComplain
-}
-*/

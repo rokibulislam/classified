@@ -14,7 +14,8 @@ interface ILogin {
 interface ISignup {
     email: string;
     password: string;
-    username: string;
+    // username: string;
+    name: string;
 }
 
 class AuthService {
@@ -49,21 +50,23 @@ class AuthService {
 
     public signup = async (input: ISignup): Promise<any> => {
         try {
+
             const user = await User.findOne( {
                 email: input.email
             });
 
             if( user ){
+                console.log(user)
                 throw new Error('Email already in use' )
             }
 
             const hashedPassword = await bcrypt.hash(input.password, 12);
             const newUser = new User({ ...input, password: hashedPassword });
             const result = await newUser.save();
-            
-            PubSub.publish(Events.USER_CREATED, {
-                userCreated: result
-            });
+            console.log( result )
+            // PubSub.publish(Events.USER_CREATED, {
+            //     userCreated: result
+            // });
 
             return result
 
@@ -75,5 +78,3 @@ class AuthService {
 }
 
 export default new AuthService()
-
-// export default { signup, login }

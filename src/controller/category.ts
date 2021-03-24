@@ -32,7 +32,7 @@ class CategoryController {
         try {
             let category = await this.service.createCategory(req.body)
             return res.send(category)
-        } catch(error) {
+        } catch( error ) {
 
         }
     }

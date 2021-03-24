@@ -39,50 +39,65 @@ class PostService {
     }
 
     public getPost = async (id: string): Promise<any> => {
-        return Post.findById(id)
+        try {
+            let post = await Post.findById(id)
+            return post
+        } catch( error ) {
+
+        }
     }
 
     /**  get post by category, tag ,brand , table column */
     public postbymeta = async ( options : any ): Promise<any> => {
-        let posts = await Post.find( options );
-        return posts
+        try {
+            let posts = await Post.find( options );
+            return posts
+        } catch( error ) {
+
+        }
     }
 
 
     public createPost = async ( input: any, loggedInUserId: string ) : Promise<any> => {
-        let post = new Post({ ...input, user: loggedInUserId });
-        let result = post.save();
+        try {
+            let post = new Post({ ...input, user: loggedInUserId });
+            let result = post.save();
 
-        PubSub.publish(Events.POST_CREATED, {
-            postCreated: result
-        });
+            PubSub.publish(Events.POST_CREATED, {
+                postCreated: result
+            });
 
-        return result
+            return result
+        } catch( error ) {
+            
+        }
     }
 
     public updatePost = async (id: string, post: any): Promise<any> => {
-        return Post.findOneAndUpdate( { _id: id }, post, { new: true } )
+        try {
+             let result = await Post.findOneAndUpdate( { _id: id }, post, { new: true } )
+             return result
+        } catch( error ) {
+            
+        }
     }
 
     public deletePost = async (id: string): Promise<any> => {
-        return Post.findOneAndDelete( { _id: id } )
+        try {
+            let post = await Post.findOneAndDelete( { _id: id } )
+            return post
+        } catch( error ) {
+
+        }
     }
 
     public bulkdeletePost = async (id: string): Promise<any> => {
-        return await Post.deleteMany({ _id: id })
+        try {
+            return await Post.deleteMany({ _id: id })
+        } catch( error ) {
+
+        }
     }
 }
 
 export default new PostService()
-
-/*
-export default {
-    getPosts,
-    getPost,
-    createPost,
-    updatePost,
-    deletePost,
-    postbymeta,
-    bulkdeletePost
-}
-*/
