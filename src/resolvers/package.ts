@@ -5,7 +5,7 @@ import { isAuthenticated } from '../middlewares';
 export default {
     
     Query: {
-        packages: () : Promise<any> => PackageService.getPackages(),
+        packages: async ( _: any,{ cursor, limit = 10, sortBy="_id", order="asc" } : { cursor: any, limit: number, sortBy: string ,order: string } )  : Promise<any> => PackageService.getPackages( cursor, limit, sortBy, order ),
         package: (_: any, { id } : { id: string } ) : Promise<any> => PackageService.getPackage(id),
     },
 

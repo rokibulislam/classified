@@ -5,7 +5,7 @@ import { isAuthenticated } from '../middlewares'
 export default {
     
     Query: {
-        complains: () => ComplainService.getComplains(),
+        complains: async ( _: any,{ cursor, limit = 10, sortBy="_id", order="asc" } : { cursor: any, limit: number, sortBy: string, order: string } ) => ComplainService.getComplains(cursor,limit,sortBy,order),
         complain: (_: any, { id }: { id: string } ) => ComplainService.getComplain(id),
     },
     

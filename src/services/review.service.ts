@@ -1,11 +1,37 @@
 import Review from '../models/review'
+const { stringToBase64, base64ToString  } = require('../helper/index')
+
+interface Iquery {
+    _id?: any
+}
 
 class ReviewService {
     
-    public getReviews = async () : Promise<any> => {
+    public getReviews = async ( cursor : any, limit : any, sortBy: string ,order: string ) : Promise<any> => {
         try {
-            let reviews = await Review.find()
-            return reviews
+
+            const query: Iquery  = { }
+
+            if (cursor) {
+                query['_id'] = {
+                    '$lt': base64ToString(cursor)
+                }
+            }
+
+            let lim = parseInt( limit ) + 1
+
+            let reviews =  await Review.find().sort({ _id: -1 }).limit( lim );
+
+            const hasNextPage = reviews.length > limit;
+            reviews = hasNextPage ? reviews.slice(0, -1) : reviews;
+
+            return {
+                reviewFeed: reviews,
+                pageInfo : {
+                    nextPageCursor: hasNextPage ? stringToBase64(reviews[reviews.length - 1].id) : null,
+                    hasNextPage: hasNextPage
+                }
+            }
         } catch( error ) {
 
         }
@@ -23,7 +49,7 @@ class ReviewService {
     public createReview = async ( input: any ) : Promise<any> => {
         try {
             let review = new Review({ ...input});
-            let result = review.save();
+            let result = await review.save();
         
             return result
         } catch( error ) {

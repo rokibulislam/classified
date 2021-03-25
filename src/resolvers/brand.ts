@@ -2,11 +2,12 @@ import { combineResolvers } from 'graphql-resolvers';
 import BrandService from '../services/brand.service';
 import PostService from '../services/post.service';
 import { isAuthenticated } from '../middlewares';
+import order from '../controller/order';
 
 export default {
     
     Query: {
-        brands: () => BrandService.getBrands(),
+        brands: async ( _: any,{ cursor, limit = 10, sortBy="_id", order="asc" } : { cursor: any, limit: number, sortBy: string ,order: string } ) => BrandService.getBrands(cursor,limit, sortBy, order),
         brand: (_: any, { id } : { id: string } ) : Promise<any> => BrandService.getBrand(id),
     },
 

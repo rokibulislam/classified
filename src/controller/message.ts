@@ -10,7 +10,12 @@ class MessageController {
 
     public getMessages = async ( req: Request, res: Response ) : Promise<any> => {
         try {
-            let messages = await this.service.getMessages()
+            let cursor = req.query.cursor ? req.query.cursor : '';
+            let limit = req.query.limit ? req.query.limit : 10;
+            let order = req.query.order ? req.query.order : 'asc';
+            let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+            
+            let messages = await this.service.getMessages( cursor, limit )
 
             return res.json({
                 'data': messages

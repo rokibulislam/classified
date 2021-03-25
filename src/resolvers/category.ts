@@ -6,7 +6,7 @@ import { isAuthenticated } from '../middlewares';
 export default {
     
     Query: {
-        categories: () => CategoryService.getCategories(),
+        categories: async ( _: any,{ cursor, limit = 10, sortBy="_id", order="asc" } : { cursor: any, limit: number, sortBy: string, order: string } ) => CategoryService.getCategories(cursor,limit,sortBy,order),
         category: (_: any, { id }: { id: string } ) : Promise<any> => CategoryService.getCategory(id),
     },
 

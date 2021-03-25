@@ -10,10 +10,10 @@ class AuthMiddleWare {
     // })
 
     static isAdmin ( req: Request, res: Response , next: NextFunction ) {
-
+        next();
     }
 
     static isAuth ( req: Request, res: Response , next: NextFunction ) {
-        
+        next();
     }
 }

@@ -1,11 +1,36 @@
 import Complain  from '../models/complain'
+const { stringToBase64, base64ToString  } = require('../helper/index')
+
+interface Iquery {
+    _id?: any
+}
 
 class ComplainService {
 
-    public getComplains = async () : Promise<any> => {
+    public getComplains = async ( cursor : any, limit : any, sortBy: string ,order: string  ) : Promise<any> => {
         try {
+            const query: Iquery  = { }
+
+            if (cursor) {
+                query['_id'] = {
+                    '$lt': base64ToString(cursor)
+                }
+            }
+
+            let lim = parseInt( limit ) + 1
+
             let complains = await Complain.find()
-            return complains
+
+            const hasNextPage = complains.length > limit;
+            complains = hasNextPage ? complains.slice(0, -1) : complains;
+
+            return {
+                complainFeed: complains,
+                pageInfo : {
+                    nextPageCursor: hasNextPage ? stringToBase64(complains[complains.length - 1].id) : null,
+                    hasNextPage: hasNextPage
+                }
+            }
         } catch( error ) {
 
         }
@@ -23,7 +48,7 @@ class ComplainService {
     public createComplain = async ( input: any ) : Promise<any> => {
         try {
             let complain = new Complain({ ...input});
-            let result = complain.save();
+            let result = await complain.save();
             
             return result
         } catch( error ) {
@@ -50,7 +75,12 @@ class ComplainService {
     }
     
     public bulkdeleteComplain = async ( id: string ) : Promise<any> => {
-        return Complain.deleteMany({ _id: id })
+        try {
+            let complain = await Complain.deleteMany({ _id: id })
+            return complain
+        } catch( error ) {
+
+        }
     }
 }
 

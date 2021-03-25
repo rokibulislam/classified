@@ -10,7 +10,12 @@ class PostController {
     
     public getPosts = async ( req: Request, res: Response ) : Promise<any> => {
         try {
-            let posts = await this.service.getPosts();
+            let cursor = req.query.cursor ? req.query.cursor : '';
+            let limit = req.query.limit ? req.query.limit : 10;
+            let order = req.query.order ? req.query.order : 'asc';
+            let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+            
+            let posts = await this.service.getPosts( cursor, limit, sortBy, order );
             return res.json({
                 'data': posts
             })

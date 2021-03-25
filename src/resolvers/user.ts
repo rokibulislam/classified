@@ -9,8 +9,8 @@ import PostService from '../services/post.service';
 
 export default {
     Query: {
-        users: async ( _: any,{ cursor, limit = 10 } : { cursor: any, limit: number }, { email } : { email : string }) => {
-            return UserService.getUsers( cursor, limit)
+        users: async ( _: any,{ cursor, limit = 10, sortBy="_id", order="asc" } : { cursor: any, limit: number, sortBy: string ,order: string }, { email } : { email : string }) => {
+            return UserService.getUsers( cursor, limit, sortBy, order)
         },
         // users: () => UserService.getUsers(),
         user: combineResolvers( isAuthenticated, (_: any, __: any, { email, loggedInUserId, esClient } : { email: string,  loggedInUserId: string ,esClient: any }) => {

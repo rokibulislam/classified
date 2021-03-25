@@ -10,7 +10,12 @@ class ReviewController {
 
     public getReviews = async ( req: Request, res: Response ) : Promise<any> => {
         try {
-            let reviews = await this.service.getReviews()
+            let cursor = req.query.cursor ? req.query.cursor : '';
+            let limit = req.query.limit ? req.query.limit : 10;
+            let order = req.query.order ? req.query.order : 'asc';
+            let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+            
+            let reviews = await this.service.getReviews( cursor, limit, sortBy, order )
     
             return res.json( {
                 'data': reviews

@@ -1,11 +1,36 @@
 import Coupon from '../models/coupon'
+const { stringToBase64, base64ToString  } = require('../helper/index')
+
+interface Iquery {
+    _id?: any
+}
 
 class CouponService {
 
-    public getCoupons = async () : Promise<any> => {
+    public getCoupons = async ( cursor : any, limit : any, sortBy: string ,order: string ) : Promise<any> => {
         try {
-            let coupon = await Coupon.find()
-            return coupon
+            const query: Iquery  = { }
+
+            if (cursor) {
+                query['_id'] = {
+                    '$lt': base64ToString(cursor)
+                }
+            }
+
+            let lim = parseInt( limit ) + 1
+
+            let coupons = await Coupon.find()
+
+            const hasNextPage = coupons.length > limit;
+            coupons = hasNextPage ? coupons.slice(0, -1) : coupons;
+
+            return {
+                couponFeed: coupons,
+                pageInfo : {
+                    nextPageCursor: hasNextPage ? stringToBase64(coupons[coupons.length - 1].id) : null,
+                    hasNextPage: hasNextPage
+                }
+            }
         } catch( error ) {
 
         }
@@ -23,7 +48,7 @@ class CouponService {
     public createCoupon = async ( input: any ) : Promise<any> => {
         try {
             let coupon = new Coupon({ ...input});
-            let result = coupon.save();
+            let result = await coupon.save();
         
             return result
         } catch( error ) {

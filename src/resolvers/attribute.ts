@@ -5,7 +5,7 @@ import { isAuthenticated } from '../middlewares';
 export default {
     
     Query: {
-        attributes: () : Promise<any>  => AttributeService.getAttributes(),
+        attributes: ( _: any,{ cursor, limit = 10, sortBy = '_id', order = 'asc',  } : { cursor: any, limit: number, sortBy: string, order: string } ) : Promise<any>  => AttributeService.getAttributes( cursor, limit, sortBy,order ),
         attribute: (_: any, { id }: { id: string }) : Promise<any> => AttributeService.getAttribute(id)
     },
 

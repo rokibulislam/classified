@@ -10,7 +10,7 @@ interface Iquery {
 
 class PostService {
 
-    public getPosts = async ( cursor : any, limit : any ) => {
+    public getPosts = async ( cursor : any, limit : any, sortBy: string ,order: string ) => {
         try {
             const query: Iquery  = { }
             
@@ -61,7 +61,7 @@ class PostService {
     public createPost = async ( input: any, loggedInUserId: string ) : Promise<any> => {
         try {
             let post = new Post({ ...input, user: loggedInUserId });
-            let result = post.save();
+            let result = await post.save();
 
             PubSub.publish(Events.POST_CREATED, {
                 postCreated: result

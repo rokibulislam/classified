@@ -1,11 +1,36 @@
 import Category from '../models/category'
+const { stringToBase64, base64ToString  } = require('../helper/index')
+
+interface Iquery {
+    _id?: any
+}
 
 class CategoryService {
 
-    public getCategories = async () : Promise<any> => {
+    public getCategories = async ( cursor : any, limit : any, sortBy: string ,order: string ) : Promise<any> => {
         try {
+            const query: Iquery  = { }
+
+            if (cursor) {
+                query['_id'] = {
+                    '$lt': base64ToString(cursor)
+                }
+            }
+
+            let lim = parseInt( limit ) + 1
+
             let categories = await Category.find()
-            return categories
+
+            const hasNextPage = categories.length > limit;
+            categories = hasNextPage ? categories.slice(0, -1) : categories;
+
+            return {
+                categoryFeed: categories,
+                pageInfo : {
+                    nextPageCursor: hasNextPage ? stringToBase64(categories[categories.length - 1].id) : null,
+                    hasNextPage: hasNextPage
+                }
+            }
         } catch(error) {
 
         }
@@ -23,7 +48,7 @@ class CategoryService {
     public createCategory = async ( input: any ) : Promise<any> => {
         try {
             let category = new Category({ ...input});
-            let result = category.save();
+            let result = await category.save();
         
             return result
         } catch( error ) {

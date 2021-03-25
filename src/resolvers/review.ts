@@ -5,7 +5,8 @@ import { isAuthenticated } from '../middlewares';
 export default {
     
     Query: {
-        reviews: () => ReviewService.getReviews(),
+        
+        reviews: async ( _: any,{ cursor, limit = 10, sortBy="_id", order="asc" } : { cursor: any, limit: number, sortBy: string ,order: string } ) => ReviewService.getReviews( cursor, limit, sortBy, order ),
         review: (_: any, { id }: { id: string } ) => ReviewService.getReview(id)
     },
 

@@ -5,7 +5,7 @@ import { isAuthenticated } from '../middlewares';
 module.exports = {
     
     Query: {
-        messages: () : Promise<any>  => MessageService.getMessages(),
+        messages: async ( cursor : any, limit : any ) : Promise<any>  => MessageService.getMessages( cursor, limit),
         message: (_: any, { id } : { id: string } ) : Promise<any> => MessageService.getMessage(id)
     },
 

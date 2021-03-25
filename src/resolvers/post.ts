@@ -14,12 +14,11 @@ import { createesPost, getesPosts } from '../elasticService/posts';
 export default {
     
     Query: {
-        esposts: async (_: any,{ cursor, limit = 3 } : { cursor: any, limit: number }, { email, esClient } : { email: string,  esClient: any }) => {
+        esposts: async (_: any,{ cursor, limit = 10, sortBy="_id", order="asc" } : { cursor: any, limit: number, sortBy: string ,order: string }, { email, esClient } : { email: string,  esClient: any }) => {
             return getesPosts( esClient );
         },
-        posts: async (_: any,{ cursor, limit = 3 } : { cursor: any, limit: number }, { email, esClient } : { email: string,  esClient: any }) => {
-
-            return PostService.getPosts(  cursor, limit )
+        posts: async (_: any,{ cursor, limit = 10, sortBy="_id", order="asc" } : { cursor: any, limit: number, sortBy: string ,order: string }, { email, esClient } : { email: string,  esClient: any }) => {
+            return PostService.getPosts(  cursor, limit,sortBy, order )
         },
         post: async (_: any, { id } : { id: string }, { email } : { email: string } ) => {
             return PostService.getPost(id)

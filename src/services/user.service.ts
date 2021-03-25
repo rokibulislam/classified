@@ -7,7 +7,7 @@ interface Iquery {
 
 class UserService {
 
-    public getUsers = async ( cursor : any, limit : any ) => {
+    public getUsers = async ( cursor : any, limit : any, sortBy: string ,order: string ) => {
         try {
             const query: Iquery  = { }
             
@@ -17,7 +17,9 @@ class UserService {
                 }
             }
 
-            let users = await User.find(query).sort({ _id: -1 }).limit(limit + 1);;
+            let lim = parseInt( limit ) + 1
+            
+            let users = await User.find(query).select("-password").sort({ _id: -1 }).limit( lim );
 
             const hasNextPage = users.length > limit;
             users = hasNextPage ? users.slice(0, -1) : users;
@@ -38,7 +40,7 @@ class UserService {
 
     public getUser = async ( id: string ) : Promise<any> => {
         try {
-            let user = await User.findById(id)
+            let user = await User.findById(id).select("-password")
             return user
         } catch( error ) {
 
@@ -48,7 +50,7 @@ class UserService {
     public getbatchUsers = async (userIds: any) : Promise<any> => {
         try {
             // console.log('keys====', userIds);
-            const users = await User.find({ _id: { $in: userIds } });
+            const users = await User.find({ _id: { $in: userIds } }).select("-password");
             return users;
             // return userIds.map(userId => users.find(user => user.id === userId));
         } catch( error ) {

@@ -10,7 +10,12 @@ class CouponController {
 
     public getCoupons = async ( req: Request, res: Response ) : Promise<any> => {
         try { 
-            let coupons = await this.service.getCoupons()
+            let cursor = req.query.cursor ? req.query.cursor : '';
+            let limit = req.query.limit ? req.query.limit : 10;
+            let order = req.query.order ? req.query.order : 'asc';
+            let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+            
+            let coupons = await this.service.getCoupons( cursor, limit, sortBy, order )
     
             return res.json({
                 'data': coupons
@@ -51,6 +56,11 @@ class CouponController {
     
     public deleteCoupon = async ( req: Request, res: Response ) : Promise<any> => {
         try {
+            let cursor = req.query.cursor ? req.query.cursor : '';
+            let limit = req.query.limit ? req.query.limit : 10;
+            let order = req.query.order ? req.query.order : 'asc';
+            let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+            
             let coupon = await this.service.deleteCoupon(req.params.id)
     
             if ( !coupon )

@@ -63,12 +63,12 @@ class AuthService {
             const hashedPassword = await bcrypt.hash(input.password, 12);
             const newUser = new User({ ...input, password: hashedPassword });
             const result = await newUser.save();
-            console.log( result )
+            const { password, ...data }= result.toJSON()
             // PubSub.publish(Events.USER_CREATED, {
             //     userCreated: result
             // });
 
-            return result
+            return data
 
         } catch( error ) {
             throw error;

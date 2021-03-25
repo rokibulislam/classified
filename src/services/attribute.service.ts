@@ -1,10 +1,11 @@
 import Attribute from '../models/attribute'
+import { Request } from 'express';
 
 class AttributeService {
 
-    public getAttributes = async () : Promise<any> => {
+    public getAttributes = async ( cursor : any, limit : any, sortBy: string ,order: string ) : Promise<any> => {
         try {
-            let attributes = Attribute.find()
+            let attributes = await Attribute.find().sort([[sortBy, order]]).limit(limit).forEach()
             return attributes
         } catch( error ) {
 
@@ -23,7 +24,7 @@ class AttributeService {
     public createAttribute = async ( input: any ) : Promise<any> => {
         try {
             let attribute = new Attribute({ ...input});
-            let result = attribute.save();
+            let result = await attribute.save();
             return result
         } catch( error ) {
 

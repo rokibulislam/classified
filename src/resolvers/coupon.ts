@@ -5,7 +5,7 @@ import { isAuthenticated } from '../middlewares';
 export default {
     
     Query: {
-        coupons: () => CouponService.getCoupons(),
+        coupons: async ( _: any,{ cursor, limit = 10, sortBy="_id", order="asc" } : { cursor: any, limit: number, sortBy: string ,order: string } ) => CouponService.getCoupons(cursor,limit,sortBy,order),
         coupon: (_: any, { id }: { id: string } ) : Promise<any> => CouponService.getCoupon(id),
     },
 

@@ -1,12 +1,37 @@
 import Brand from '../models/brand'
+const { stringToBase64, base64ToString  } = require('../helper/index')
+
+interface Iquery {
+    _id?: any
+}
 
 class BrandService {
 
-    public getBrands = async () : Promise<any> => {
+    public getBrands = async ( cursor : any, limit : any, sortBy: string ,order: string ) : Promise<any> => {
         try {
-            let brands = await Brand.find()
-            return brands
-        } catch( error ) {
+            const query: Iquery  = { }
+
+            if (cursor) {
+                query['_id'] = {
+                    '$lt': base64ToString(cursor)
+                }
+            }
+
+            let lim = parseInt( limit ) + 1
+
+            let brands = await Brand.find().limit(lim)
+
+            const hasNextPage = brands.length > limit;
+            brands = hasNextPage ? brands.slice(0, -1) : brands;
+
+            return {
+                brandFeed: brands,
+                pageInfo : {
+                    nextPageCursor: hasNextPage ? stringToBase64(brands[brands.length - 1].id) : null,
+                    hasNextPage: hasNextPage
+                }
+            }
+        } catch(error) {
 
         }
     }
@@ -23,7 +48,7 @@ class BrandService {
     public createBrand = async ( input: any ) : Promise<any> => {
         try {
             let brand = new Brand({ ...input});
-            let result = brand.save();
+            let result = await brand.save();
             return result
         } catch( error ) {
 

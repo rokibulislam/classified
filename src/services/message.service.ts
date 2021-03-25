@@ -1,11 +1,38 @@
 import Message from '../models/message'
+const { stringToBase64, base64ToString  } = require('../helper/index')
+
+interface Iquery {
+    _id?: any
+}
 
 class MessageService {
 
-    public getMessages = async () => {
+    public getMessages = async ( cursor : any, limit : any ) : Promise<any> => {
         try {
-          let message = await Message.find()
-          return message
+            const query: Iquery  = { }
+
+            if (cursor) {
+                query['_id'] = {
+                    '$lt': base64ToString(cursor)
+                }
+            }
+
+            let lim = parseInt( limit ) + 1
+
+            let messages = await Message.find().sort({ _id: -1 }).limit( lim );
+            
+            const hasNextPage = messages.length > limit;
+            messages = hasNextPage ? messages.slice(0, -1) : messages;
+
+            return {
+                packageFeed: messages,
+                pageInfo : {
+                    nextPageCursor: hasNextPage ? stringToBase64(messages[messages.length - 1].id) : null,
+                    hasNextPage: hasNextPage
+                }
+            }
+
+            return messages
         } catch( error ) {
 
         }
@@ -23,7 +50,7 @@ class MessageService {
     public createMessage= async ( input: any ) : Promise<any> => {
         try {
             let message = new Message({ ...input});
-            let result = message.save();
+            let result = await message.save();
         
             return result
         } catch( error ) {

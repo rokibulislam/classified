@@ -5,7 +5,7 @@ import { isAuthenticated } from '../middlewares';
 
 export default {
     Query: {
-        tags: () => TagService.getTags(),
+        tags: async ( _: any,{ cursor, limit = 10, sortBy="_id", order="asc" } : { cursor: any, limit: number, sortBy: string ,order: string } ) => TagService.getTags( cursor, limit, sortBy, order ),
         tag: (_: any, { id }: { id: string } ) => TagService.getTag(id)
     },
 
